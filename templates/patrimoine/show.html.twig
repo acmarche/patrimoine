@@ -30,10 +30,19 @@
                     <th>Statut</th>
                     <td>{{ patrimoine.statut }}</td>
                 </tr>
+                <tr>
+                    <th>Latitude</th>
+                    <td>{{ patrimoine.latitude }}</td>
+                </tr>
+                <tr>
+                    <th>Longitude</th>
+                    <td>{{ patrimoine.longitude }}</td>
+                </tr>
                 </tbody>
             </table>
 
             {% include '@AcMarchePatrimoine/patrimoine/_images.html.twig' %}
+            {% include '@AcMarchePatrimoine/patrimoine/_carte.html.twig' %}
 
         </div>
     </div>
