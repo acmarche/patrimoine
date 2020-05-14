@@ -81,7 +81,7 @@ class Patrimoine implements TimestampableInterface
 
     public function __toString()
     {
-        return $this->nom;
+        return $this->getNom();
     }
 
     public function getId(): ?int
@@ -91,6 +91,10 @@ class Patrimoine implements TimestampableInterface
 
     public function getNom(): ?string
     {
+        if (!$this->nom) {
+            return 'PAs de nom';
+        }
+
         return $this->nom;
     }
 
