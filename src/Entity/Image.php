@@ -35,12 +35,13 @@ class Image implements TimestampableInterface
      * @ORM\Column(type="string", length=80)
      */
     private $mime;
+
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="patrimoine", fileNameProperty="fileName", size="fileSize")
      *
-     * @var File
+     * @var UploadedFile
      */
     private $file;
 

@@ -80,7 +80,7 @@ class ImageController extends AbstractController
         $image->setFile($file);
 
         try {
-            $this->uploadHandler->upload($image, 'image');
+            $this->uploadHandler->upload($image, 'file');
         } catch (\Exception $exception) {
             return $this->render(
                 '@AcMarchePatrimoine/upload/_response_fail.html.twig',

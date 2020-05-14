@@ -1,5 +1,7 @@
 {% extends '@AcMarchePatrimoine/layout.html.twig' %}
-
+{% block stylesheets %}
+    <link href="{{ asset('bundles/patrimoine/js/lightGallery/dist/css/lightgallery.min.css') }}" rel="stylesheet">
+{% endblock %}
 {% block body -%}
     <div class="card bg-light mb-3">
         <div class="card-header">
@@ -35,4 +37,24 @@
 
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {#
+    <script src="{{ asset('bundles/patrimoine/js/lightGallery/dist/js/lightgallery.min.js') }}"
+            crossorigin="anonymous"></script>
+    <!-- A jQuery plugin that adds cross-browser mouse wheel support. (Optional) -->
+    <script src="{{ asset('bundles/patrimoine/js/lightGallery/lib/jquery.mousewheel.min.js') }}"></script>
+    <!-- lightgallery plugins -->
+    <script src="{{ asset('bundles/patrimoine/js/lightGallery/modules/lg-fullscreen.min.js') }}"></script>
+    <script src="{{ asset('bundles/patrimoine/js/lightGallery/modules/lg-zoom.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lightgallery").lightGallery({
+                    'selector': '.card-jf'
+                }
+            );
+        });
+    </script>
+    #}
 {% endblock %}
