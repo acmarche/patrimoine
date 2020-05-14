@@ -1,0 +1,41 @@
+{% extends '@AcMarchePatrimoine/layout.html.twig' %}
+
+{% block body %}
+    <div class="page-header">
+        <h3>Liste des types</h3>
+    </div>
+
+    {% include '@AcMarchePatrimoine/patrimoine/_search.html.twig' %}
+
+    <table class='table table-bordered table-hover'>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Localité</th>
+            <th>Statut</th>
+            <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for patrimoine in patrimoines %}
+            <tr>
+                <td>
+                    <a href="{{ path('patrimoine_show', { 'id': patrimoine.id }) }}">
+                        {{ patrimoine }}
+                    </a>
+                </td>
+                <td>
+                    {{ patrimoine.localite }}
+                </td>
+                 <td>
+                    {{ patrimoine.statut }}
+                </td>
+                 <td>
+                    {{ patrimoine.typePatrimoine }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

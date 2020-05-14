@@ -1,0 +1,38 @@
+{% extends '@AcMarchePatrimoine/layout.html.twig' %}
+
+{% block body -%}
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h3>{{ patrimoine }}</h3>
+        </div>
+        <div class="card-body">
+
+            {% include '@Patrimoine/patrimoine/_actions.html.twig' %}
+
+            <br/><br/>
+            <table class='table table-bordered table-hover'>
+                <tbody>
+                <tr>
+                    <th>Statut</th>
+                    <td>{{ patrimoine.statut }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ patrimoine.typePatrimoine }}</td>
+                </tr>
+                <tr>
+                    <th>Localité</th>
+                    <td>{{ patrimoine.localite }}</td>
+                </tr>
+                <tr>
+                    <th>Statut</th>
+                    <td>{{ patrimoine.statut }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {% include '@AcMarchePatrimoine/patrimoine/_images.html.twig' %}
+
+        </div>
+    </div>
+{% endblock %}

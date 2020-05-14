@@ -1,0 +1,7 @@
+<h4>Images</h4>
+{% for image in patrimoine.images %}
+    <br/> <br/>
+    <img class="img-thumbnail"
+         src="{{ vich_uploader_asset(image, 'image') | imagine_filter('acbottin_thumb') }}" alt="img"/>
+    <br/>
+{% endfor %}
