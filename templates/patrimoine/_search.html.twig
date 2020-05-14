@@ -1,6 +1,20 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
-{{ form_widget(form) }}
-<input type="submit" name="search" value="Rechercher" class="btn btn-primary">
+<div class="form-row">
+
+    <div class="col-4">
+        {{ form_row(form.nom) }}
+    </div>
+
+    <div class="col-4">
+        {{ form_row(form.statut) }}
+    </div>
+
+    <div class="col-4">
+        {{ form_row(form.typePatrimoine) }}
+    </div>
+
+    <input type="submit" name="search" value="Rechercher" class="btn btn-primary">
+</div>
 {{ form_end(form) }}
-<br />
+<br/>
