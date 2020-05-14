@@ -92,7 +92,7 @@ class Patrimoine implements TimestampableInterface
     public function getNom(): ?string
     {
         if (!$this->nom) {
-            return 'PAs de nom';
+            return 'Pas de nom';
         }
 
         return $this->nom;

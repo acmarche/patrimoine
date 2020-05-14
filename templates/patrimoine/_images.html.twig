@@ -2,7 +2,10 @@
 
 {% for image in patrimoine.images %}
 
-    <img class="img-thumbnail"
-         src="{{ vich_uploader_asset(image, 'file') | imagine_filter('patrimoine_thumb') }}" alt="img"/>
+    <a href="{{ path('patrimoine_image_show', {'id': image.id}) }}">
+        <img class="img-thumbnail"
+             src="{{ vich_uploader_asset(image, 'file') | imagine_filter('patrimoine_thumb') }}"
+             alt="img"/>
+    </a>
     <br/>
 {% endfor %}
