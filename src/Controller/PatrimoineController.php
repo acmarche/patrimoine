@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/patrimoine")
- * @IsGranted("ROLE_PATRIMONE_ADMIN")
+ * @IsGranted("ROLE_PATRIMOINE_ADMIN")
  */
 class PatrimoineController extends AbstractController
 {

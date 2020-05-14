@@ -3,12 +3,11 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
-use AcMarche\Bottin\Entity\Fiche;
-use AcMarche\Bottin\Entity\FicheImage;
 use AcMarche\Patrimoine\Entity\Image;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\ImageType;
 use AcMarche\Patrimoine\Repository\ImageRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +18,7 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 /**
  * Class DefaultController
  * @package AcMarche\Patrimoine\Controller
+ * @IsGranted("ROLE_PATRIMOINE_ADMIN")
  */
 class ImageController extends AbstractController
 {
