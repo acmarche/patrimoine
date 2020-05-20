@@ -3,6 +3,7 @@
 namespace AcMarche\Patrimoine\Controller;
 
 use AcMarche\Patrimoine\Entity\Patrimoine;
+use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Form\PatrimoineType;
 use AcMarche\Patrimoine\Form\SearchPatrimoineType;
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
@@ -87,10 +88,19 @@ class PatrimoineController extends AbstractController
      */
     public function show(Patrimoine $patrimoine): Response
     {
+        $form = $this->createForm(
+            LocalisationType::class,
+            $patrimoine,
+            [
+                'action' => $this->generateUrl('patrimoine_localisation_update', ['id' => $patrimoine->getId()]),
+            ]
+        );
+
         return $this->render(
             '@AcMarchePatrimoine/patrimoine/show.html.twig',
             [
                 'patrimoine' => $patrimoine,
+                'form' => $form->createView(),
             ]
         );
     }
