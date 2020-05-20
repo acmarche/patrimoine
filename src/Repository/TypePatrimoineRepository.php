@@ -19,7 +19,6 @@ class TypePatrimoineRepository extends ServiceEntityRepository
         parent::__construct($registry, TypePatrimoine::class);
     }
 
-
     public function remove(TypePatrimoine $reduction)
     {
         $this->_em->remove($reduction);
@@ -33,5 +32,13 @@ class TypePatrimoineRepository extends ServiceEntityRepository
     public function persist(TypePatrimoine $reduction)
     {
         $this->_em->persist($reduction);
+    }
+
+    public function getForList()
+    {
+        return $this->createQueryBuilder('type')
+            ->addOrderBy('type.nom','ASC')
+            ;
+
     }
 }
