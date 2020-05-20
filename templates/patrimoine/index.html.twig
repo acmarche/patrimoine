@@ -35,10 +35,11 @@
                     {{ patrimoine.typePatrimoine }}
                 </td>
                 <td>
-                    <a href="{{ patrimoine.photo }}" target="_blank">
+                    <a href="{{ path('patrimoine_show', { 'id': patrimoine.id }) }}">
                         <img class="img-thumbnail"
                              src="{{ patrimoine.photo }}" style="width: 150px;"
-                             alt="img"/></a>
+                             alt="img"/>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
