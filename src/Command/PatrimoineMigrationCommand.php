@@ -53,13 +53,7 @@ class PatrimoineMigrationCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         foreach ($this->patrimoineRepository->findAll() as $patrimoine) {
-            if ($type = $this->typePatrimoineRepository->findOneBy(['nom' => $patrimoine->getTypeOld()])) {
-                $patrimoine->setTypePatrimoine($type);
-            }
 
-            if ($statut = $this->statutRepository->findOneBy(['nom' => $patrimoine->getStatutOld()])) {
-                $patrimoine->setStatut($statut);
-            }
         }
 
         $this->patrimoineRepository->flush();
