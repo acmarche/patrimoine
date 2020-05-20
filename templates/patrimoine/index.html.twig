@@ -14,6 +14,7 @@
             <th>Localité</th>
             <th>Statut</th>
             <th>Type</th>
+            <th>Photo</th>
         </tr>
         </thead>
         <tbody>
@@ -27,11 +28,17 @@
                 <td>
                     {{ patrimoine.localite }}
                 </td>
-                 <td>
+                <td>
                     {{ patrimoine.statut }}
                 </td>
-                 <td>
+                <td>
                     {{ patrimoine.typePatrimoine }}
+                </td>
+                <td>
+                    <a href="{{ patrimoine.photo }}" target="_blank">
+                        <img class="img-thumbnail"
+                             src="{{ patrimoine.photo }}" style="width: 150px;"
+                             alt="img"/></a>
                 </td>
             </tr>
         {% endfor %}

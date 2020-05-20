@@ -74,6 +74,24 @@ class Patrimoine implements TimestampableInterface
      */
     private $images;
 
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $photo;
+
+      /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $typeOld;
+
+      /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $statutOld;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -216,6 +234,42 @@ class Patrimoine implements TimestampableInterface
                 $image->setPatrimoine(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getTypeOld(): ?string
+    {
+        return $this->typeOld;
+    }
+
+    public function setTypeOld(?string $typeOld): self
+    {
+        $this->typeOld = $typeOld;
+
+        return $this;
+    }
+
+    public function getStatutOld(): ?string
+    {
+        return $this->statutOld;
+    }
+
+    public function setStatutOld(?string $statutOld): self
+    {
+        $this->statutOld = $statutOld;
 
         return $this;
     }

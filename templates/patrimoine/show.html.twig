@@ -15,6 +15,15 @@
             <table class='table table-bordered table-hover'>
                 <tbody>
                 <tr>
+                    <th>Ancienne photo</th>
+                    <td>
+                        <a href="{{ patrimoine.photo }}" target="_blank">
+                        <img class="img-thumbnail"
+                              src="{{ patrimoine.photo }}" style="width: 150px;"
+                              alt="img"/></a>
+                    </td>
+                </tr>
+                <tr>
                     <th>Statut</th>
                     <td>{{ patrimoine.statut }}</td>
                 </tr>
