@@ -34,11 +34,12 @@ class PatrimoineRepository extends ServiceEntityRepository
 
     /**
      * @param string|null $nom
+     * @param string|null $localite
      * @param TypePatrimoine|null $type
      * @param Statut|null $statut
      * @return Patrimoine[]
      */
-    public function search(?string $nom, ?TypePatrimoine $type, ?Statut $statut)
+    public function search(?string $nom, ?string $localite, ?TypePatrimoine $type, ?Statut $statut)
     {
         $qb = $this->createQueryBuilder('patrimoine');
 
@@ -46,10 +47,17 @@ class PatrimoineRepository extends ServiceEntityRepository
             $qb->andWhere('patrimoine.nom LIKE :nom')
                 ->setParameter('nom', '%'.$nom.'%');
         }
+
+        if ($localite) {
+            $qb->andWhere('patrimoine.localite = :localite')
+                ->setParameter('localite', $localite);
+        }
+
         if ($type) {
             $qb->andWhere('patrimoine.typePatrimoine = :type')
                 ->setParameter('type', $type);
         }
+
         if ($statut) {
             $qb->andWhere('patrimoine.statut = :statut')
                 ->setParameter('statut', $statut);

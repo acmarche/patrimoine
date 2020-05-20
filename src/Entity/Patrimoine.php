@@ -104,7 +104,7 @@ class Patrimoine implements TimestampableInterface
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 

@@ -41,9 +41,10 @@ class PatrimoineController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $patrimoines = $this->patrimoineRepository->search(
-                $data->getNom(),
-                $data->getTypePatrimoine(),
-                $data->getStatut()
+                $data['nom'],
+                $data['localite'],
+                $data['typePatrimoine'],
+                $data['statut']
             );
         }
 

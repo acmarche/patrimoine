@@ -5,8 +5,10 @@ namespace AcMarche\Patrimoine\Form;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
+use AcMarche\Patrimoine\Repository\LocaliteRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,8 +36,9 @@ class PatrimoineType extends AbstractType
             )
             ->add(
                 'localite',
-                TextType::class,
+                ChoiceType::class,
                 [
+                    'choices' => array_combine(LocaliteRepository::getList(),LocaliteRepository::getList()),
                     'required' => false,
                 ]
             )
@@ -44,14 +47,14 @@ class PatrimoineType extends AbstractType
                 EntityType::class,
                 [
                     'class' => TypePatrimoine::class,
-                    'placeholder'=>'Sélectionnez'
+                    'placeholder' => 'Sélectionnez',
                 ]
             )->add(
                 'statut',
                 EntityType::class,
                 [
                     'class' => Statut::class,
-                    'placeholder'=>'Sélectionnez'
+                    'placeholder' => 'Sélectionnez',
                 ]
             );
     }
