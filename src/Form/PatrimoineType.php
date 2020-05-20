@@ -44,12 +44,14 @@ class PatrimoineType extends AbstractType
                 EntityType::class,
                 [
                     'class' => TypePatrimoine::class,
+                    'placeholder'=>'Sélectionnez'
                 ]
             )->add(
                 'statut',
                 EntityType::class,
                 [
                     'class' => Statut::class,
+                    'placeholder'=>'Sélectionnez'
                 ]
             );
     }

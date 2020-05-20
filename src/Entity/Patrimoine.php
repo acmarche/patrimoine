@@ -134,7 +134,7 @@ class Patrimoine implements TimestampableInterface
         return $this->localite;
     }
 
-    public function setLocalite(string $localite): self
+    public function setLocalite(?string $localite): self
     {
         $this->localite = $localite;
 
@@ -146,7 +146,7 @@ class Patrimoine implements TimestampableInterface
         return $this->descriptif;
     }
 
-    public function setDescriptif(string $descriptif): self
+    public function setDescriptif(?string $descriptif): self
     {
         $this->descriptif = $descriptif;
 
@@ -158,7 +158,7 @@ class Patrimoine implements TimestampableInterface
         return $this->commentaire;
     }
 
-    public function setCommentaire(string $commentaire): self
+    public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
 
