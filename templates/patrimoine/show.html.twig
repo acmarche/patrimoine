@@ -17,10 +17,13 @@
                 <tr>
                     <th>Ancienne photo</th>
                     <td>
-                        <a href="{{ patrimoine.photo }}" target="_blank">
-                        <img class="img-thumbnail"
-                              src="{{ patrimoine.photo}}" style="width: 150px;"
-                              alt="img"/></a>
+                        {% if patrimoine.photo %}
+                            <a href="{{ patrimoine.photo }}" target="_blank">
+                                <img class="img-thumbnail"
+                                     src="{{ patrimoine.photo }}" style="width: 150px;"
+                                     alt="img"/>
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>

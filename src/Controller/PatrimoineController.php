@@ -64,6 +64,7 @@ class PatrimoineController extends AbstractController
     public function new(Request $request): Response
     {
         $patrimoine = new Patrimoine();
+
         $form = $this->createForm(PatrimoineType::class, $patrimoine);
         $form->handleRequest($request);
 

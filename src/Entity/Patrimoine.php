@@ -25,7 +25,7 @@ class Patrimoine implements TimestampableInterface
 
     /**
      * @var string|null
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $nom;
 
@@ -49,13 +49,13 @@ class Patrimoine implements TimestampableInterface
 
     /**
      * @var string|null
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $descriptif;
 
     /**
      * @var string|null
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $commentaire;
 
@@ -76,7 +76,7 @@ class Patrimoine implements TimestampableInterface
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $photo;
 
