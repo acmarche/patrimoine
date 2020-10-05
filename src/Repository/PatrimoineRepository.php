@@ -6,7 +6,7 @@ use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Patrimoine|null find($id, $lockMode = null, $lockVersion = null)

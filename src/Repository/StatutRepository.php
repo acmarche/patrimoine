@@ -4,7 +4,7 @@ namespace AcMarche\Patrimoine\Repository;
 
 use AcMarche\Patrimoine\Entity\Statut;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Statut|null find($id, $lockMode = null, $lockVersion = null)
