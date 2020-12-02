@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"patrimoine:write"}},
  *     itemOperations={"get"}
  * )
- * @ApiFilter(SearchFilter::class, properties={"parent": "exact", "id": "exact"})
+ * @ApiFilter(SearchFilter::class, properties={"nom": "partial", "id": "exact"})
  *
  */
 class Patrimoine implements TimestampableInterface
