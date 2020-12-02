@@ -125,14 +125,22 @@ class Patrimoine implements TimestampableInterface
         return $this->latitude.','.$this->longitude;
     }
 
-    public function getType()
+    public function getType(): ?string
     {
-        return $this->type;
+        if ($this->type) {
+            return $this->getTypePatrimoine()->getNom();
+        }
+
+        return null;
     }
 
-    public function getStatutTxt()
+    public function getStatutTxt(): ?string
     {
-        return $this->statutTxt;
+        if ($this->statut) {
+            return $this->getStatut()->getNom();
+        }
+
+        return null;
     }
 
     public function __construct()
