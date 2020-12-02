@@ -78,13 +78,13 @@ class Patrimoine implements TimestampableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\TypePatrimoine")
-     * @Groups("patrimoine:read")
+     *
      */
     private $typePatrimoine;
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Statut")
-     * @Groups("patrimoine:read")
+     *
      */
     private $statut;
 
@@ -102,14 +102,37 @@ class Patrimoine implements TimestampableInterface
     private $photo;
 
     /**
-     * @var array
+     * @var string|null
+     * @Groups("patrimoine:read")
+     */
+    private $type;
+
+    /**
+     * @var string|null
+     * @Groups("patrimoine:read")
+     */
+    private $statutTxt;
+
+    /**
+     * @var string
      *
      * @Groups("patrimoine:read")
      */
     private $geopoint;
 
-    public function getGeopoint(): string {
+    public function getGeopoint(): string
+    {
         return $this->latitude.','.$this->longitude;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getStatutTxt()
+    {
+        return $this->statutTxt;
     }
 
     public function __construct()
