@@ -108,8 +108,8 @@ class Patrimoine implements TimestampableInterface
      */
     private $geopoint;
 
-    public function getGeopoint(): array {
-        return [$this->latitude, $this->longitude];
+    public function getGeopoint(): string {
+        return $this->latitude.','.$this->longitude;
     }
 
     public function __construct()
