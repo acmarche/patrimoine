@@ -120,14 +120,14 @@ class Patrimoine implements TimestampableInterface
      */
     private $geopoint;
 
-    public function getGeopoint(): string
+    public function getGeopoint(): ?string
     {
         return $this->latitude.','.$this->longitude;
     }
 
     public function getType(): ?string
     {
-        if ($this->type) {
+        if ($this->typePatrimoine) {
             return $this->getTypePatrimoine()->getNom();
         }
 
