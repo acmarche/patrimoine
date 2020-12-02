@@ -2,14 +2,24 @@
 
 namespace AcMarche\Patrimoine\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="AcMarche\Patrimoine\Repository\PatrimoineRepository")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"patrimoine:read"}},
+ *     denormalizationContext={"groups"={"patrimoine:write"}},
+ *     itemOperations={"get"}
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"parent": "exact", "id": "exact"})
  *
  */
 class Patrimoine implements TimestampableInterface
@@ -20,63 +30,74 @@ class Patrimoine implements TimestampableInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("patrimoine:read")
      */
     private $id;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
+     * @Groups("patrimoine:read")
      */
     private $nom;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
+     * @Groups("patrimoine:read")
      */
     private $longitude;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
+     * @Groups("patrimoine:read")
      */
     private $latitude;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=false)
+     * @Groups("patrimoine:read")
      */
     private $localite;
 
     /**
      * @var string|null
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("patrimoine:read")
      */
     private $descriptif;
 
     /**
      * @var string|null
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("patrimoine:read")
      */
     private $commentaire;
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\TypePatrimoine")
+     * @Groups("patrimoine:read")
      */
     private $typePatrimoine;
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Statut")
+     * @Groups("patrimoine:read")
      */
     private $statut;
 
     /**
      * @ORM\OneToMany(targetEntity="AcMarche\Patrimoine\Entity\Image", mappedBy="patrimoine")
+     * @Groups("patrimoine:read")
      */
     private $images;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
+     * @Groups("patrimoine:read")
      */
     private $photo;
 
