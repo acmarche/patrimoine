@@ -101,6 +101,17 @@ class Patrimoine implements TimestampableInterface
      */
     private $photo;
 
+    /**
+     * @var array
+     *
+     * @Groups("patrimoine:read")
+     */
+    private $geopoint;
+
+    public function getGeopoint(): array {
+        return [$this->latitude, $this->longitude];
+    }
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
