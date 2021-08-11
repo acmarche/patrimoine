@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Repository;
 
+use AcMarche\Patrimoine\Doctrine\OrmCrudTrait;
 use AcMarche\Patrimoine\Entity\Statut;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class StatutRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Statut::class);
@@ -29,20 +32,4 @@ class StatutRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
-
-    public function remove(Statut $reduction)
-    {
-        $this->_em->remove($reduction);
-    }
-
-    public function flush()
-    {
-        $this->_em->flush();
-    }
-
-    public function persist(Statut $reduction)
-    {
-        $this->_em->persist($reduction);
-    }
-
 }

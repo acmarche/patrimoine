@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Repository;
 
+use AcMarche\Patrimoine\Doctrine\OrmCrudTrait;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
@@ -16,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PatrimoineRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Patrimoine::class);
@@ -53,12 +56,12 @@ class PatrimoineRepository extends ServiceEntityRepository
                 ->setParameter('localite', $localite);
         }
 
-        if ($type) {
+        if ($type !== null) {
             $qb->andWhere('patrimoine.typePatrimoine = :type')
                 ->setParameter('type', $type);
         }
 
-        if ($statut) {
+        if ($statut !== null) {
             $qb->andWhere('patrimoine.statut = :statut')
                 ->setParameter('statut', $statut);
         }
@@ -69,21 +72,4 @@ class PatrimoineRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
-
-
-    public function remove(Patrimoine $reduction)
-    {
-        $this->_em->remove($reduction);
-    }
-
-    public function flush()
-    {
-        $this->_em->flush();
-    }
-
-    public function persist(Patrimoine $reduction)
-    {
-        $this->_em->persist($reduction);
-    }
-
 }

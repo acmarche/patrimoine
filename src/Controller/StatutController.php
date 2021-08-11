@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Form\StatutType;
 use AcMarche\Patrimoine\Repository\StatutRepository;
@@ -17,10 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class StatutController extends AbstractController
 {
-    /**
-     * @var StatutRepository
-     */
-    private $statutRepository;
+    private StatutRepository $statutRepository;
 
     public function __construct(StatutRepository $statutRepository)
     {

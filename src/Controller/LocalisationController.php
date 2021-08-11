@@ -3,6 +3,7 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
@@ -18,10 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LocalisationController extends AbstractController
 {
-    /**
-     * @var PatrimoineRepository
-     */
-    private $patrimoineRepository;
+    private PatrimoineRepository $patrimoineRepository;
 
     public function __construct(PatrimoineRepository $patrimoineRepository)
     {
@@ -32,7 +30,7 @@ class LocalisationController extends AbstractController
      * @IsGranted("ROLE_PATRIMOINE_ADMIN")
      * @Route("/{id}", name="patrimoine_localisation_update", methods={"POST"})
      */
-    public function update(Request $request, Patrimoine $patrimoine)
+    public function update(Request $request, Patrimoine $patrimoine): Response
     {
         $form = $this->createForm(LocalisationType::class, $patrimoine);
 

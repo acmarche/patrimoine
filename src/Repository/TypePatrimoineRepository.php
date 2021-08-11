@@ -2,6 +2,8 @@
 
 namespace AcMarche\Patrimoine\Repository;
 
+use AcMarche\Patrimoine\Doctrine\OrmCrudTrait;
+use Doctrine\ORM\QueryBuilder;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,31 +16,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TypePatrimoineRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TypePatrimoine::class);
     }
 
-    public function remove(TypePatrimoine $reduction)
-    {
-        $this->_em->remove($reduction);
-    }
-
-    public function flush()
-    {
-        $this->_em->flush();
-    }
-
-    public function persist(TypePatrimoine $reduction)
-    {
-        $this->_em->persist($reduction);
-    }
-
-    public function getForList()
+    public function getForList(): QueryBuilder
     {
         return $this->createQueryBuilder('type')
-            ->addOrderBy('type.nom','ASC')
-            ;
+            ->addOrderBy('type.nom', 'ASC');
 
     }
 }

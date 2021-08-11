@@ -32,95 +32,84 @@ class Patrimoine implements TimestampableInterface
      * @ORM\Column(type="integer")
      * @Groups("patrimoine:read")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      * @Groups("patrimoine:read")
      */
-    private $nom;
+    private ?string $nom = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      * @Groups("patrimoine:read")
      */
-    private $longitude;
+    private ?string $longitude = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      * @Groups("patrimoine:read")
      */
-    private $latitude;
+    private ?string $latitude = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=false)
      * @Groups("patrimoine:read")
      */
-    private $localite;
+    private ?string $localite = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="text", nullable=true)
      * @Groups("patrimoine:read")
      */
-    private $descriptif;
+    private ?string $descriptif = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="text", nullable=true)
      * @Groups("patrimoine:read")
      */
-    private $commentaire;
+    private ?string $commentaire = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\TypePatrimoine")
      *
      */
-    private $typePatrimoine;
+    private ?TypePatrimoine $typePatrimoine = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Statut")
      *
      */
-    private $statut;
+    private ?Statut $statut = null;
 
     /**
      * @ORM\OneToMany(targetEntity="AcMarche\Patrimoine\Entity\Image", mappedBy="patrimoine")
      * @Groups("patrimoine:read")
      */
-    private $images;
+    private Collection $images;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      * @Groups("patrimoine:read")
      */
-    private $photo;
+    private ?string $photo = null;
 
     /**
-     * @var string|null
      * @Groups("patrimoine:read")
      */
-    private $type;
+    private ?string $type = null;
 
     /**
-     * @var string|null
      * @Groups("patrimoine:read")
      */
-    private $statutTxt;
+    private ?string $statutTxt = null;
 
     /**
-     * @var string
-     *
      * @Groups("patrimoine:read")
      */
-    private $geopoint;
+    private string $geopoint;
 
-    public function getGeopoint(): ?string
+    public function getGeopoint(): string
     {
         return $this->latitude.','.$this->longitude;
     }
@@ -158,7 +147,7 @@ class Patrimoine implements TimestampableInterface
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getNom(): string
     {
         if (!$this->nom) {
             return 'Pas de nom';
@@ -261,7 +250,7 @@ class Patrimoine implements TimestampableInterface
     /**
      * @return Collection|Image[]
      */
-    public function getImages(): Collection
+    public function getImages(): ArrayCollection
     {
         return $this->images;
     }

@@ -6,7 +6,7 @@ namespace AcMarche\Patrimoine\Repository;
 
 class LocaliteRepository
 {
-    public static function getList()
+    public static function getList(): array
     {
         return
             [

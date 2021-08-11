@@ -3,8 +3,6 @@
 namespace AcMarche\Patrimoine\Command;
 
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
-use AcMarche\Patrimoine\Repository\StatutRepository;
-use AcMarche\Patrimoine\Repository\TypePatrimoineRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,32 +13,17 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class PatrimoineMigrationCommand extends Command
 {
     protected static $defaultName = 'patrimoine:migration';
-    /**
-     * @var PatrimoineRepository
-     */
-    private $patrimoineRepository;
-    /**
-     * @var TypePatrimoineRepository
-     */
-    private $typePatrimoineRepository;
-    /**
-     * @var StatutRepository
-     */
-    private $statutRepository;
+    private PatrimoineRepository $patrimoineRepository;
 
     public function __construct(
         PatrimoineRepository $patrimoineRepository,
-        TypePatrimoineRepository $typePatrimoineRepository,
-        StatutRepository $statutRepository,
         string $name = null
     ) {
         parent::__construct($name);
         $this->patrimoineRepository = $patrimoineRepository;
-        $this->typePatrimoineRepository = $typePatrimoineRepository;
-        $this->statutRepository = $statutRepository;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Add a short description for your command')

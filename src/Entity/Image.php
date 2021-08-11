@@ -3,6 +3,8 @@
 
 namespace AcMarche\Patrimoine\Entity;
 
+use Exception;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
@@ -23,41 +25,34 @@ class Image implements TimestampableInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var Patrimoine
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Patrimoine", inversedBy="images")
      */
-    private $patrimoine;
+    private ?Patrimoine $patrimoine;
 
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $mime;
+    private ?string $mime = null;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="patrimoine", fileNameProperty="fileName", size="fileSize")
-     *
-     * @var UploadedFile
      */
-    private $file;
+    private ?File $file = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
-     * @var string|null
      */
-    private $fileName;
+    private ?string $fileName = null;
 
     /**
      * @ORM\Column(type="integer")
-     *
-     * @var integer
      */
-    private $fileSize;
+    private ?int $fileSize = null;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -66,8 +61,8 @@ class Image implements TimestampableInterface
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
-     * @throws \Exception
+     * @param File|UploadedFile $imageFile
+     * @throws Exception
      */
     public function setFile(?File $file = null): void
     {
@@ -76,11 +71,11 @@ class Image implements TimestampableInterface
         if (null !== $file) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 
-    public function getFile(): ?File
+    public function getFile(): UploadedFile
     {
         return $this->file;
     }
@@ -95,7 +90,7 @@ class Image implements TimestampableInterface
         return $this->id;
     }
 
-    public function getMime(): ?string
+    public function getMime(): string
     {
         return $this->mime;
     }
@@ -119,7 +114,7 @@ class Image implements TimestampableInterface
         return $this;
     }
 
-    public function getFileSize(): ?int
+    public function getFileSize(): int
     {
         return $this->fileSize;
     }
@@ -131,7 +126,7 @@ class Image implements TimestampableInterface
         return $this;
     }
 
-    public function getPatrimoine(): ?Patrimoine
+    public function getPatrimoine(): Patrimoine
     {
         return $this->patrimoine;
     }

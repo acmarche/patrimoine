@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Form\PatrimoineType;
@@ -19,10 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PatrimoineController extends AbstractController
 {
-    /**
-     * @var PatrimoineRepository
-     */
-    private $patrimoineRepository;
+    private PatrimoineRepository $patrimoineRepository;
 
     public function __construct(PatrimoineRepository $patrimoineRepository)
     {

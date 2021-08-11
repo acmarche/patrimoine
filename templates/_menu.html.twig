@@ -1,12 +1,10 @@
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('patrimoine_index') }}"><i class="fas fa-list"></i> Patrimoines</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('patrimoine_new') }}"><i class="fas fa-plus"></i> Ajouter une patrimoine</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('patrimoine_type_index') }}">Types <span class="sr-only">(current)</span></a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ path('patrimoine_statut_index') }}">Statuts</a>
-</li>
+<ul class="nav nav-pills">
+    <li class="nav-item"><a href="{{ path('patrimoine_index') }}" class="nav-link" aria-current="page">Patrimoines</a>
+    </li>
+    {% if is_granted('ROLE_ENQUETE_ADMIN') %}
+        <li class="nav-item"><a href="{{ path('patrimoine_new') }}" class="nav-link">Ajouter</a></li>
+        <li class="nav-item"><a href="{{ path('patrimoine_type_index') }}" class="nav-link">Ajouter une patrimoine</a></li>
+        <li class="nav-item"><a href="{{ path('patrimoine_statut_index') }}" class="nav-link">Statuts</a></li>
+    <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link">{{ app.user }}</a></li>
+    {% endif %}
+</ul>

@@ -18,7 +18,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="patrimoine_home")
      */
-    public function index()
+    public function index(): Response
     {
         return $this->redirectToRoute('patrimoine_index');
     }

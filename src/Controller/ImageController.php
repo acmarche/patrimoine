@@ -3,6 +3,8 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Exception;
 use AcMarche\Patrimoine\Entity\Image;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\ImageType;
@@ -22,14 +24,8 @@ use Vich\UploaderBundle\Handler\UploadHandler;
  */
 class ImageController extends AbstractController
 {
-    /**
-     * @var ImageRepository
-     */
-    private $imageRepository;
-    /**
-     * @var UploadHandler
-     */
-    private $uploadHandler;
+    private ImageRepository $imageRepository;
+    private UploadHandler $uploadHandler;
 
     public function __construct(
         ImageRepository $imageRepository,
@@ -42,7 +38,7 @@ class ImageController extends AbstractController
     /**
      * @Route("/images/{id}", name="patrimoine_images")
      */
-    public function index(Patrimoine $patrimoine)
+    public function index(Patrimoine $patrimoine): Response
     {
         $image = new Image($patrimoine);
         $form = $this->createForm(
@@ -66,7 +62,7 @@ class ImageController extends AbstractController
      * @Route("/image/upload/{id}", name="patrimoine_image_upload")
      *
      */
-    public function upload(Request $request, Patrimoine $patrimoine)
+    public function upload(Request $request, Patrimoine $patrimoine): Response
     {
         $image = new Image($patrimoine);
         /**
@@ -81,7 +77,7 @@ class ImageController extends AbstractController
 
         try {
             $this->uploadHandler->upload($image, 'file');
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->render(
                 '@AcMarchePatrimoine/upload/_response_fail.html.twig',
                 ['error' => $exception->getMessage()]
@@ -99,7 +95,7 @@ class ImageController extends AbstractController
      *
      * @Route("/image/{id}", name="patrimoine_image_show", methods={"GET"})
      */
-    public function show(Image $image)
+    public function show(Image $image): Response
     {
         return $this->render(
             '@AcMarchePatrimoine/image/show.html.twig',

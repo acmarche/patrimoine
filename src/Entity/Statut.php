@@ -16,13 +16,12 @@ class Statut
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string")
      */
-    private $nom;
+    private ?string $nom = null;
 
     public function __toString()
     {

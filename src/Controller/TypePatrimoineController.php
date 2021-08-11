@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
 use AcMarche\Patrimoine\Form\TypePatrimoineType;
 use AcMarche\Patrimoine\Repository\TypePatrimoineRepository;
@@ -17,10 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TypePatrimoineController extends AbstractController
 {
-    /**
-     * @var TypePatrimoineRepository
-     */
-    private $typeRepository;
+    private TypePatrimoineRepository $typeRepository;
 
     public function __construct(TypePatrimoineRepository $typeRepository)
     {

@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PatrimoineType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nom')
@@ -47,9 +47,7 @@ class PatrimoineType extends AbstractType
                 EntityType::class,
                 [
                     'class' => TypePatrimoine::class,
-                    'query_builder' => function (TypePatrimoineRepository $typePatrimoineRepository) {
-                        return $typePatrimoineRepository->getForList();
-                    },
+                    'query_builder' => fn(TypePatrimoineRepository $typePatrimoineRepository) => $typePatrimoineRepository->getForList(),
                     'placeholder' => 'Sélectionnez',
                 ]
             )->add(
@@ -62,7 +60,7 @@ class PatrimoineType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [

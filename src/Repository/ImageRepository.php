@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Repository;
 
+use AcMarche\Patrimoine\Doctrine\OrmCrudTrait;
 use AcMarche\Patrimoine\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ImageRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Image::class);
@@ -29,20 +32,4 @@ class ImageRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
-
-    public function remove(Image $reduction)
-    {
-        $this->_em->remove($reduction);
-    }
-
-    public function flush()
-    {
-        $this->_em->flush();
-    }
-
-    public function persist(Image $reduction)
-    {
-        $this->_em->persist($reduction);
-    }
-
 }
