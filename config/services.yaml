@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+ table_prefix: 'patrimoine_'
 
 services:
   # default configuration for services in *this* file
@@ -17,3 +17,10 @@ services:
   AcMarche\Patrimoine\:
     resource: '../src/*'
     exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+  kernel.listener.prefix:
+    class: AcMarche\Patrimoine\Doctrine\TablePrefix
+    arguments:
+      $prefix: '%table_prefix%'
+    tags:
+      - { name: doctrine.event_listener, event: loadClassMetadata, method: loadClassMetadata }

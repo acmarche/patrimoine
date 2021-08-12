@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
+ *
  * @ORM\Entity(repositoryClass="AcMarche\Patrimoine\Repository\ImageRepository")
  * @Vich\Uploadable
  */
