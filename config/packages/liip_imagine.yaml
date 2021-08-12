@@ -30,7 +30,7 @@ liip_imagine:
         thumbnail: { size: [240, 180], mode: outbound }
 
     patrimoine_thumb:
-      quality: 100
+      quality: 90
       filters:
         thumbnail: { size: [250, 188], mode: inset }
 

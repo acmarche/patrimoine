@@ -11,6 +11,7 @@ use AcMarche\Patrimoine\Repository\TypePatrimoineRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,6 +21,25 @@ class PatrimoineType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('rue', TextType::class, [
+                'required' => false,
+            ])
+            ->add('numero', TextType::class, [
+                'required' => false,
+            ])
+            ->add('codePostal', TextType::class, [
+                'required' => false,
+            ])
+            ->add(
+                'localite',
+                EntityType::class,
+                [
+                    'class' => Localite::class,
+                    'query_builder' => fn(LocaliteRepository $localiteRepository) => $localiteRepository->getList(),
+                    'required' => true,
+                    'placeholder' => 'Sélectionnez',
+                ]
+            )
             ->add(
                 'descriptif',
                 TextareaType::class,
@@ -32,16 +52,6 @@ class PatrimoineType extends AbstractType
                 TextareaType::class,
                 [
                     'required' => false,
-                ]
-            )
-            ->add(
-                'localite',
-                EntityType::class,
-                [
-                    'class' => Localite::class,
-                    'query_builder' => fn(LocaliteRepository $localiteRepository) => $localiteRepository->getList(),
-                    'required' => true,
-                    'placeholder' => 'Sélectionnez',
                 ]
             )
             ->add(

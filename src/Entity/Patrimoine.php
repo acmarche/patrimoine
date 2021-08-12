@@ -41,6 +41,21 @@ class Patrimoine implements TimestampableInterface
     private ?string $nom = null;
 
     /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected ?string $rue = null;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected ?string $numero = null;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected ?int $code_postal = null;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups("patrimoine:read")
      */
@@ -285,6 +300,42 @@ class Patrimoine implements TimestampableInterface
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getRue(): ?string
+    {
+        return $this->rue;
+    }
+
+    public function setRue(string $rue): self
+    {
+        $this->rue = $rue;
+
+        return $this;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(?string $numero): self
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?int
+    {
+        return $this->code_postal;
+    }
+
+    public function setCodePostal(int $code_postal): self
+    {
+        $this->code_postal = $code_postal;
 
         return $this;
     }

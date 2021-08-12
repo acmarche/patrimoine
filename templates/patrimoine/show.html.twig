@@ -8,21 +8,26 @@
         <div class="card-body">
 
             {% include '@Patrimoine/patrimoine/_actions.html.twig' %}
-
+            <p>
+                {{ patrimoine.rue }}
+                {{ patrimoine.numero }}<br/>
+                {{ patrimoine.codePostal }}
+                {{ patrimoine.localite }}
+            </p>
             <table class='table table-bordered table-hover'>
                 <tbody>
-                <tr>
-                    <th>Ancienne photo</th>
-                    <td>
-                        {% if patrimoine.photo %}
+                {% if patrimoine.photo %}
+                    <tr>
+                        <th>Ancienne photo</th>
+                        <td>
                             <a href="{{ patrimoine.photo }}" target="_blank">
                                 <img class="img-thumbnail"
                                      src="{{ patrimoine.photo }}" style="width: 150px;"
                                      alt="img"/>
                             </a>
-                        {% endif %}
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th>Statut</th>
                     <td>{{ patrimoine.statut }}</td>
@@ -30,10 +35,6 @@
                 <tr>
                     <th>Type</th>
                     <td>{{ patrimoine.typePatrimoine }}</td>
-                </tr>
-                <tr>
-                    <th>Localité</th>
-                    <td>{{ patrimoine.localite }}</td>
                 </tr>
                 <tr>
                     <th>Statut</th>
