@@ -8,15 +8,21 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 class TablePrefix
 {
     protected string $prefix = '';
+    protected string $namespace = '';
 
-    public function __construct($prefix)
+    public function __construct(string $prefix, string $namespace)
     {
-        $this->prefix = (string)$prefix;
+        $this->prefix = $prefix;
+        $this->namespace = $namespace;
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         $classMetadata = $eventArgs->getClassMetadata();
+
+        if (!preg_match('#'.$this->namespace.'#', $classMetadata->namespace)) {
+            return;
+        }
 
         if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->getName(
             ) === $classMetadata->rootEntityName) {

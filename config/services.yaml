@@ -22,5 +22,6 @@ services:
     class: AcMarche\Patrimoine\Doctrine\TablePrefix
     arguments:
       $prefix: '%table_prefix%'
+      $namespace: 'AcMarche\\Patrimoine'#double \\
     tags:
       - { name: doctrine.event_listener, event: loadClassMetadata, method: loadClassMetadata }
