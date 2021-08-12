@@ -3,12 +3,11 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Exception;
 use AcMarche\Patrimoine\Entity\Image;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\ImageType;
 use AcMarche\Patrimoine\Repository\ImageRepository;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -59,35 +58,33 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/image/upload/{id}", name="patrimoine_image_upload")
-     *
+     * @Route("/image/upload/{id}", name="patrimoine_image_upload", methods={"POST"})
      */
     public function upload(Request $request, Patrimoine $patrimoine): Response
     {
-        $image = new Image($patrimoine);
+        $file = $request->files->get('image');
         /**
-         * @var UploadedFile $file
+         * @var UploadedFile[] $files
          */
-        $file = $request->files->get('file');
+        $files = $file['file'];
+        foreach ($files as $file) {
 
-        $nom = str_replace('.'.$file->getClientOriginalExtension(), '', $file->getClientOriginalName());
-        $image->setMime($file->getMimeType());
-        $image->setFileName($file->getClientOriginalName());
-        $image->setFile($file);
+            $image = new Image($patrimoine);
+            //$nom = str_replace('.'.$file->getClientOriginalExtension(), '', $file->getClientOriginalName());
+            $image->setMime($file->getMimeType());
+            $image->setFileName($file->getClientOriginalName());
+            $image->setFile($file);
 
-        try {
-            $this->uploadHandler->upload($image, 'file');
-        } catch (Exception $exception) {
-            return $this->render(
-                '@AcMarchePatrimoine/upload/_response_fail.html.twig',
-                ['error' => $exception->getMessage()]
-            );
+            try {
+                $this->uploadHandler->upload($image, 'file');
+            } catch (Exception $exception) {
+                $this->addFlash('danger', $exception->getMessage());
+            }
+            $this->imageRepository->persist($image);
         }
-
-        $this->imageRepository->persist($image);
         $this->imageRepository->flush();
 
-        return $this->render('@AcMarchePatrimoine/upload/_response_ok.html.twig');
+        return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
     }
 
     /**

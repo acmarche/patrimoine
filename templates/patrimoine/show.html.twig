@@ -1,4 +1,4 @@
-{% extends '@AcMarchePatrimoine/layout.html.twig' %}
+{% extends '@Patrimoine/layout.html.twig' %}
 {% block stylesheets %}
     <link href="{{ asset('bundles/patrimoine/js/lightGallery/dist/css/lightgallery.min.css') }}" rel="stylesheet">
 {% endblock %}
@@ -11,7 +11,6 @@
 
             {% include '@Patrimoine/patrimoine/_actions.html.twig' %}
 
-            <br/><br/>
             <table class='table table-bordered table-hover'>
                 <tbody>
                 <tr>
@@ -53,8 +52,8 @@
                 </tbody>
             </table>
 
-            {% include '@AcMarchePatrimoine/patrimoine/_images.html.twig' %}
-            {% include '@AcMarchePatrimoine/patrimoine/_carte.html.twig' %}
+            {% include '@Patrimoine/patrimoine/_images.html.twig' %}
+            {% include '@Patrimoine/patrimoine/_carte.html.twig' %}
 
         </div>
     </div>

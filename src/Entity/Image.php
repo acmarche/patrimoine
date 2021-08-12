@@ -75,7 +75,7 @@ class Image implements TimestampableInterface
         }
     }
 
-    public function getFile(): UploadedFile
+    public function getFile(): ?File
     {
         return $this->file;
     }

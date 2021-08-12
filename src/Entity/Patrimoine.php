@@ -85,7 +85,7 @@ class Patrimoine implements TimestampableInterface
      * @ORM\OneToMany(targetEntity="AcMarche\Patrimoine\Entity\Image", mappedBy="patrimoine")
      * @Groups("patrimoine:read")
      */
-    private Collection $images;
+    private iterable $images;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -249,7 +249,7 @@ class Patrimoine implements TimestampableInterface
     /**
      * @return Collection|Image[]
      */
-    public function getImages(): ArrayCollection
+    public function getImages(): iterable
     {
         return $this->images;
     }

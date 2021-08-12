@@ -1,41 +1,24 @@
 {% extends '@AcMarchePatrimoine/layout.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/patrimoine/css/dropzone.css') }}">
-{% endblock %}
-
 {% block body -%}
     <div class="card bg-light mb-3">
         <div class="card-header">
             <h3>Images de {{ patrimoine }}</h3>
         </div>
         <div class="card-body">
-            {{ form_start(form, {'attr':{'class': 'dropzone jumbotron'}}) }}
+            {{ form_start(form) }}
             {{ form_errors(form) }}
+            {{ form_widget(form) }}
 
-            <div class="dz-message d-flex flex-column">
-                <i class="fas fa-cloud-upload-alt">Charger les images</i>
-            </div>
+            <input type="submit" name="search" value="Ajouter" class="btn btn-primary my-1 mr-sm-2">
 
             {{ form_end(form) }}
 
+        </div>
+        <div class="card-footer">
             <a href="{{ path('patrimoine_show',{'id': patrimoine.id}) }}">
                 <i class="fas fa-long-arrow-alt-left"></i> Retour à au patrimoine
             </a>
-
         </div>
     </div>
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('bundles/patrimoine/js/dropzone.js') }}"></script>
-    <script type="text/javascript">
-        Dropzone.options.formdrop = {
-            dictDefaultMessage: "Glissez ici vos images ou cliquez sur cette zone pour ajouter des photos",
-            init: function () {
-                this.on("addedfile", function (file) {
-                    console.log("finished");
-                });
-            }
-        };
-    </script>
 {% endblock %}
