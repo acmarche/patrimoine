@@ -6,6 +6,9 @@
     <a href="{{ path('patrimoine_images', { 'id': patrimoine.id }) }}" role="button"
        class="btn btn-primary"><i class="far fa-images"></i> Images</a>
 
+    <a href="{{ path('patrimoine_localisation_edit', { 'id': patrimoine.id }) }}" class="btn btn-primary" role="button">
+        <i class="fas fa-map-marker-alt"></i> Géolocalisation</a>
+
     <a href="{{ path('patrimoine_index') }}" class="btn btn-primary" role='button'><i class="fas fa-list"></i>
         Retour à la Liste</a>
 

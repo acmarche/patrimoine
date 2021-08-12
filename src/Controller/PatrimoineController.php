@@ -2,7 +2,6 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Form\PatrimoineType;
@@ -90,19 +89,10 @@ class PatrimoineController extends AbstractController
      */
     public function show(Patrimoine $patrimoine): Response
     {
-        $form = $this->createForm(
-            LocalisationType::class,
-            $patrimoine,
-            [
-                'action' => $this->generateUrl('patrimoine_localisation_update', ['id' => $patrimoine->getId()]),
-            ]
-        );
-
         return $this->render(
             '@AcMarchePatrimoine/patrimoine/show.html.twig',
             [
                 'patrimoine' => $patrimoine,
-                'form' => $form->createView(),
             ]
         );
     }

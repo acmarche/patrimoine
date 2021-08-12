@@ -28,19 +28,29 @@ class LocalisationController extends AbstractController
 
     /**
      * @IsGranted("ROLE_PATRIMOINE_ADMIN")
-     * @Route("/{id}", name="patrimoine_localisation_update", methods={"POST"})
+     * @Route("/{id}", name="patrimoine_localisation_edit", methods={"GET","POST"})
      */
-    public function update(Request $request, Patrimoine $patrimoine): Response
+    public function edit(Request $request, Patrimoine $patrimoine): Response
     {
         $form = $this->createForm(LocalisationType::class, $patrimoine);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->patrimoineRepository->flush();
-            $this->addFlash("success", "La situation a bien été modifiée");
+
+            $this->addFlash("success", "La localisation a bien été modifiée");
+
+            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
         }
 
-        return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+        return $this->render(
+            '@Patrimoine/localisation/edit.html.twig',
+            [
+                'patrimoine' => $patrimoine,
+                'form' => $form->createView(),
+            ]
+        );
     }
 }
