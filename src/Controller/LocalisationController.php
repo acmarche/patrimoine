@@ -3,13 +3,13 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**

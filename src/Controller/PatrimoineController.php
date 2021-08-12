@@ -35,7 +35,8 @@ class PatrimoineController extends AbstractController
         $form = $this->createForm(SearchPatrimoineType::class);
 
         $form->handleRequest($request);
-        $patrimoines = $this->patrimoineRepository->findAll();
+        $patrimoines = [];
+        $search = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
@@ -45,6 +46,7 @@ class PatrimoineController extends AbstractController
                 $data['typePatrimoine'],
                 $data['statut']
             );
+            $search = true;
         }
 
         return $this->render(
@@ -52,6 +54,7 @@ class PatrimoineController extends AbstractController
             [
                 'patrimoines' => $patrimoines,
                 'form' => $form->createView(),
+                'search' => $search,
             ]
         );
     }

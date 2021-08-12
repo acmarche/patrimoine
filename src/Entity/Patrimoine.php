@@ -4,12 +4,12 @@ namespace AcMarche\Patrimoine\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -53,8 +53,7 @@ class Patrimoine implements TimestampableInterface
     private ?string $latitude = null;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
-     * @Groups("patrimoine:read")
+     * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Localite")
      */
     private ?string $localite = null;
 

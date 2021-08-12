@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+{{ form_row(form.nom) }}
+{{ form_row(form.descriptif) }}
+{{ form_row(form.commentaire) }}
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.localite) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.typePatrimoine) }}
+    </div>
+</div>
+{{ form_row(form.statut) }}
+
+<button class="btn btn-primary mr-1 mt-3" type="submit"><i class="far fa-save" aria-hidden="true"></i>
+    Sauvegarder
+</button>
+
+{{ form_end(form) }}

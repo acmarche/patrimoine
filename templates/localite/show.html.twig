@@ -1,17 +1,16 @@
 {% extends '@AcMarchePatrimoine/layout.html.twig' %}
 
-{% block title %}Error Patrimoine{% endblock %}
-
 {% block body -%}
-
-    <div class="card mb-3">
+    <div class="card bg-light mb-3">
         <div class="card-header">
-            <h3>Erreur survenue</h3>
+            <h3>{{ localite }}</h3>
         </div>
         <div class="card-body">
+
+            {% include '@Patrimoine/localite/_actions.html.twig' %}
+
             <br/><br/>
-            <a href="{{ path('patrimoine_index') }}">Retour à l'accueil</a>
+
         </div>
     </div>
-
 {% endblock %}
