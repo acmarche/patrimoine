@@ -18,6 +18,9 @@ services:
     resource: '../src/*'
     exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
+  AcMarche\Patrimoine\Security\SecurityRoles:
+    tags: ['marchebe.roles']
+
   kernel.listener.prefix:
     class: AcMarche\Patrimoine\Doctrine\TablePrefix
     arguments:

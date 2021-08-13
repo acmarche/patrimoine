@@ -1,7 +1,7 @@
 <ul class="nav nav-pills">
     <li class="nav-item"><a href="{{ path('patrimoine_index') }}" class="nav-link" aria-current="page">Patrimoines</a>
     </li>
-    {% if is_granted('ROLE_ENQUETE_ADMIN') %}
+    {% if is_granted('ROLE_PATRIMOINE_ADMIN') %}
         <li class="nav-item"><a href="{{ path('patrimoine_new') }}" class="nav-link">Ajouter un patrimoine</a></li>
         <li class="nav-item"><a href="{{ path('patrimoine_type_index') }}" class="nav-link">Types</a></li>
         <li class="nav-item"><a href="{{ path('patrimoine_localite_index') }}" class="nav-link">Localités</a></li>
