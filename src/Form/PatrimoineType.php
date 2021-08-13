@@ -20,7 +20,7 @@ class PatrimoineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom', TextType::class)
             ->add('rue', TextType::class, [
                 'required' => false,
             ])

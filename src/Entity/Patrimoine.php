@@ -35,13 +35,13 @@ class Patrimoine implements TimestampableInterface
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      * @Groups("patrimoine:read")
      */
     private ?string $nom = null;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected ?string $rue = null;
 
@@ -51,7 +51,7 @@ class Patrimoine implements TimestampableInterface
     protected ?string $numero = null;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected ?int $code_postal = null;
 
@@ -69,8 +69,9 @@ class Patrimoine implements TimestampableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Localite")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private ?string $localite = null;
+    private ?Localite $localite = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -86,13 +87,13 @@ class Patrimoine implements TimestampableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\TypePatrimoine")
-     *
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?TypePatrimoine $typePatrimoine = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Statut")
-     *
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?Statut $statut = null;
 
@@ -163,10 +164,6 @@ class Patrimoine implements TimestampableInterface
 
     public function getNom(): string
     {
-        if (!$this->nom) {
-            return 'Pas de nom';
-        }
-
         return $this->nom;
     }
 
@@ -201,12 +198,12 @@ class Patrimoine implements TimestampableInterface
         return $this;
     }
 
-    public function getLocalite(): ?string
+    public function getLocalite(): ?Localite
     {
         return $this->localite;
     }
 
-    public function setLocalite(?string $localite): self
+    public function setLocalite(?Localite $localite): self
     {
         $this->localite = $localite;
 
