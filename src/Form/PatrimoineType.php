@@ -69,6 +69,7 @@ class PatrimoineType extends AbstractType
                 [
                     'class' => Statut::class,
                     'placeholder' => 'Sélectionnez',
+                    'required' => false,
                 ]
             );
     }

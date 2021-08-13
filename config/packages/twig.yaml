@@ -2,3 +2,6 @@ twig:
   form_themes: ['bootstrap_5_layout.html.twig']
   paths:
     '%kernel.project_dir%/src/AcMarche/Patrimoine/templates': AcMarchePatrimoine
+  globals:
+    g_latitude: "%env(SEPULTURE_LATITUDE)%"
+    g_longitude: "%env(SEPULTURE_LONGITUDE)%"
