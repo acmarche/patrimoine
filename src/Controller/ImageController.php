@@ -62,13 +62,9 @@ class ImageController extends AbstractController
      */
     public function upload(Request $request, Patrimoine $patrimoine): Response
     {
-        $file = $request->files->get('image');
-        /**
-         * @var UploadedFile[] $files
-         */
-        $files = $file['file'];
-        foreach ($files as $file) {
+        $file = $request->files->get('file');
 
+        if ($file instanceof UploadedFile) {
             $image = new Image($patrimoine);
             //$nom = str_replace('.'.$file->getClientOriginalExtension(), '', $file->getClientOriginalName());
             $image->setMime($file->getMimeType());
