@@ -9,11 +9,7 @@
             {{ form_start(form, { 'attr': {'id': 'formdrop','class': 'mt-3 dropzone', 'data-controller': 'dropzone'}}) }}
             {{ form_errors(form) }}
             {{ form_widget(form) }}
-
-            <input type="submit" name="add" value="Ajouter" class="btn btn-primary my-1 mr-sm-2">
-
             {{ form_end(form) }}
-
         </div>
         <div class="card-footer">
             <a href="{{ path('patrimoine_show',{'id': patrimoine.id}) }}">
