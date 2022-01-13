@@ -3,9 +3,9 @@
 namespace AcMarche\Patrimoine\Repository;
 
 use AcMarche\Patrimoine\Doctrine\OrmCrudTrait;
-use Doctrine\ORM\QueryBuilder;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,6 +27,5 @@ class TypePatrimoineRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('type')
             ->addOrderBy('type.nom', 'ASC');
-
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Entity;
 
+use AcMarche\Patrimoine\Repository\PatrimoineRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -10,118 +11,67 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="AcMarche\Patrimoine\Repository\PatrimoineRepository")
  * @ApiResource(
  *     normalizationContext={"groups"={"patrimoine:read"}},
  *     denormalizationContext={"groups"={"patrimoine:write"}},
  *     itemOperations={"get"}
  * )
  * @ApiFilter(SearchFilter::class, properties={"nom": "partial", "id": "exact"})
- *
  */
-class Patrimoine implements TimestampableInterface
+#[ORM\Entity(repositoryClass: PatrimoineRepository::class)]
+class Patrimoine implements TimestampableInterface, Stringable
 {
     use TimestampableTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(groups: 'patrimoine:read')]
     private ?int $id = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $nom = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $rue = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $numero = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $code_postal = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $longitude = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $latitude = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Localite")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: Localite::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Localite $localite = null;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $descriptif = null;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $commentaire = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\TypePatrimoine")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: TypePatrimoine::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?TypePatrimoine $typePatrimoine = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Statut")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: Statut::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Statut $statut = null;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AcMarche\Patrimoine\Entity\Image", mappedBy="patrimoine")
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'patrimoine')]
+    #[Groups(groups: 'patrimoine:read')]
     private iterable $images;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups("patrimoine:read")
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $photo = null;
-
-    /**
-     * @Groups("patrimoine:read")
-     */
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $type = null;
-
-    /**
-     * @Groups("patrimoine:read")
-     */
+    #[Groups(groups: 'patrimoine:read')]
     private ?string $statutTxt = null;
-
-    /**
-     * @Groups("patrimoine:read")
-     */
+    #[Groups(groups: 'patrimoine:read')]
     private string $geopoint;
 
     public function getGeopoint(): string
@@ -131,7 +81,7 @@ class Patrimoine implements TimestampableInterface
 
     public function getType(): ?string
     {
-        if ($this->typePatrimoine) {
+        if (null !== $this->typePatrimoine) {
             return $this->getTypePatrimoine()->getNom();
         }
 
@@ -140,7 +90,7 @@ class Patrimoine implements TimestampableInterface
 
     public function getStatutTxt(): ?string
     {
-        if ($this->statut) {
+        if (null !== $this->statut) {
             return $this->getStatut()->getNom();
         }
 
@@ -152,7 +102,7 @@ class Patrimoine implements TimestampableInterface
         $this->images = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getNom();
     }
@@ -162,7 +112,7 @@ class Patrimoine implements TimestampableInterface
         return $this->id;
     }
 
-    public function getNom(): string
+    public function getNom(): ?string
     {
         return $this->nom;
     }

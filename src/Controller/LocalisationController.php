@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AcMarche\Patrimoine\Controller;
 
 use AcMarche\Patrimoine\Entity\Patrimoine;
@@ -13,34 +12,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class LocalisationController
- * @package AcMarche\Patrimoine\Controller
- * @Route("/localisation")
+ * Class LocalisationController.
  */
+#[Route(path: '/localisation')]
 class LocalisationController extends AbstractController
 {
-    private PatrimoineRepository $patrimoineRepository;
-
-    public function __construct(PatrimoineRepository $patrimoineRepository)
+    public function __construct(private PatrimoineRepository $patrimoineRepository)
     {
-        $this->patrimoineRepository = $patrimoineRepository;
     }
 
-    /**
-     * @IsGranted("ROLE_PATRIMOINE_ADMIN")
-     * @Route("/{id}", name="patrimoine_localisation_edit", methods={"GET","POST"})
-     */
+    #[IsGranted(data: 'ROLE_PATRIMOINE_ADMIN')]
+    #[Route(path: '/{id}', name: 'patrimoine_localisation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Patrimoine $patrimoine): Response
     {
         $form = $this->createForm(LocalisationType::class, $patrimoine);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->patrimoineRepository->flush();
 
-            $this->addFlash("success", "La localisation a bien été modifiée");
+            $this->addFlash('success', 'La localisation a bien été modifiée');
 
             return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
         }

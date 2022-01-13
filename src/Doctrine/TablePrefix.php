@@ -7,16 +7,11 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class TablePrefix
 {
-    protected string $prefix = '';
-    protected string $namespace = '';
-
-    public function __construct(string $prefix, string $namespace)
+    public function __construct(protected string $prefix, protected string $namespace)
     {
-        $this->prefix = $prefix;
-        $this->namespace = $namespace;
     }
 
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
     {
         $classMetadata = $eventArgs->getClassMetadata();
 
@@ -32,12 +27,10 @@ class TablePrefix
         }
 
         foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
-            if ($mapping['type'] == ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide']) {
+            if (ClassMetadataInfo::MANY_TO_MANY == $mapping['type'] && $mapping['isOwningSide']) {
                 $mappedTableName = $mapping['joinTable']['name'];
                 $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix.$mappedTableName;
             }
         }
     }
-
 }
-

@@ -31,7 +31,8 @@ class SearchPatrimoineType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Localite::class,
-                    'query_builder' => fn(LocaliteRepository $localiteRepository
+                    'query_builder' => fn (
+                        LocaliteRepository $localiteRepository
                     ) => $localiteRepository->getList(),
                     'required' => false,
                     'placeholder' => 'Localité',
@@ -42,7 +43,8 @@ class SearchPatrimoineType extends AbstractType
                 EntityType::class,
                 [
                     'class' => TypePatrimoine::class,
-                    'query_builder' => fn(TypePatrimoineRepository $typePatrimoineRepository
+                    'query_builder' => fn (
+                        TypePatrimoineRepository $typePatrimoineRepository
                     ) => $typePatrimoineRepository->getForList(),
                     'required' => false,
                     'placeholder' => 'Type',
@@ -63,7 +65,6 @@ class SearchPatrimoineType extends AbstractType
     {
         $resolver->setDefaults(
             [
-
             ]
         );
     }

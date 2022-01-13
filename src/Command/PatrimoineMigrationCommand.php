@@ -13,14 +13,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class PatrimoineMigrationCommand extends Command
 {
     protected static $defaultName = 'patrimoine:migration';
-    private PatrimoineRepository $patrimoineRepository;
 
     public function __construct(
-        PatrimoineRepository $patrimoineRepository,
+        private PatrimoineRepository $patrimoineRepository,
         string $name = null
     ) {
         parent::__construct($name);
-        $this->patrimoineRepository = $patrimoineRepository;
     }
 
     protected function configure(): void
@@ -36,7 +34,6 @@ class PatrimoineMigrationCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         foreach ($this->patrimoineRepository->findAll() as $patrimoine) {
-
         }
 
         $this->patrimoineRepository->flush();

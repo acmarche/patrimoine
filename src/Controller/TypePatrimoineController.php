@@ -2,32 +2,25 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
 use AcMarche\Patrimoine\Form\TypePatrimoineType;
 use AcMarche\Patrimoine\Repository\TypePatrimoineRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/type")
- * @IsGranted("ROLE_PATRIMOINE_ADMIN")
- */
+#[Route(path: '/type')]
+#[IsGranted(data: 'ROLE_PATRIMOINE_ADMIN')]
 class TypePatrimoineController extends AbstractController
 {
-    private TypePatrimoineRepository $typeRepository;
-
-    public function __construct(TypePatrimoineRepository $typeRepository)
+    public function __construct(private TypePatrimoineRepository $typeRepository)
     {
-        $this->typeRepository = $typeRepository;
     }
 
-    /**
-     * @Route("/", name="patrimoine_type_index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'patrimoine_type_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
@@ -38,17 +31,13 @@ class TypePatrimoineController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new", name="patrimoine_type_new", methods={"GET","POST"})
-     */
+    #[Route(path: '/new', name: 'patrimoine_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $type = new TypePatrimoine();
         $form = $this->createForm(TypePatrimoineType::class, $type);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->typeRepository->persist($type);
             $this->typeRepository->flush();
 
@@ -64,9 +53,7 @@ class TypePatrimoineController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="patrimoine_type_show", methods={"GET"})
-     */
+    #[Route(path: '/{id}', name: 'patrimoine_type_show', methods: ['GET'])]
     public function show(TypePatrimoine $type): Response
     {
         return $this->render(
@@ -77,17 +64,13 @@ class TypePatrimoineController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="patrimoine_type_edit", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id}/edit', name: 'patrimoine_type_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, TypePatrimoine $type): Response
     {
         $form = $this->createForm(TypePatrimoineType::class, $type);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeRepository->flush();
-
 
             return $this->redirectToRoute('patrimoine_type_show', ['id' => $type->getId()]);
         }
@@ -101,10 +84,8 @@ class TypePatrimoineController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="patrimoine_type_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, TypePatrimoine $type): Response
+    #[Route(path: '/{id}', name: 'patrimoine_type_delete', methods: ['DELETE'])]
+    public function delete(Request $request, TypePatrimoine $type): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$type->getId(), $request->request->get('_token'))) {
             $this->typeRepository->remove($type);

@@ -3,7 +3,6 @@ doctrine:
     mappings:
       AcMarche\Patrimoine:
         is_bundle: false
-        type: annotation
         dir: '%kernel.project_dir%/src/AcMarche/Patrimoine/src/Entity'
         prefix: 'AcMarche\Patrimoine'
         alias: AcMarchePatrimoine

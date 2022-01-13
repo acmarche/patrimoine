@@ -36,10 +36,6 @@ class PatrimoineRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string|null $nom
-     * @param string|null $localite
-     * @param TypePatrimoine|null $type
-     * @param Statut|null $statut
      * @return Patrimoine[]
      */
     public function search(?string $nom, ?string $localite, ?TypePatrimoine $type, ?Statut $statut)
@@ -56,12 +52,12 @@ class PatrimoineRepository extends ServiceEntityRepository
                 ->setParameter('localite', $localite);
         }
 
-        if ($type !== null) {
+        if (null !== $type) {
             $qb->andWhere('patrimoine.typePatrimoine = :type')
                 ->setParameter('type', $type);
         }
 
-        if ($statut !== null) {
+        if (null !== $statut) {
             $qb->andWhere('patrimoine.statut = :statut')
                 ->setParameter('statut', $statut);
         }

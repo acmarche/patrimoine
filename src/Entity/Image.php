@@ -1,58 +1,39 @@
 <?php
 
-
 namespace AcMarche\Patrimoine\Entity;
 
-use Exception;
+use AcMarche\Patrimoine\Repository\ImageRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- *
- * @ORM\Entity(repositoryClass="AcMarche\Patrimoine\Repository\ImageRepository")
  * @Vich\Uploadable
  */
+#[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image implements TimestampableInterface
 {
     use TimestampableTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AcMarche\Patrimoine\Entity\Patrimoine", inversedBy="images")
-     */
-    private ?Patrimoine $patrimoine;
-
-    /**
-     * @ORM\Column(type="string", length=80)
-     */
+    #[ORM\Column(type: 'string', length: 80)]
     private ?string $mime = null;
-
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="patrimoine", fileNameProperty="fileName", size="fileSize")
      */
     private ?File $file = null;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $fileName = null;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private ?int $fileSize = null;
 
     /**
@@ -63,6 +44,7 @@ class Image implements TimestampableInterface
      * during Doctrine hydration.
      *
      * @param File|UploadedFile $imageFile
+     *
      * @throws Exception
      */
     public function setFile(?File $file = null): void
@@ -81,9 +63,8 @@ class Image implements TimestampableInterface
         return $this->file;
     }
 
-    public function __construct(Patrimoine $patrimoine)
+    public function __construct(#[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')] private ?Patrimoine $patrimoine)
     {
-        $this->patrimoine = $patrimoine;
     }
 
     public function getId(): ?int
@@ -91,7 +72,7 @@ class Image implements TimestampableInterface
         return $this->id;
     }
 
-    public function getMime(): string
+    public function getMime(): ?string
     {
         return $this->mime;
     }
@@ -115,7 +96,7 @@ class Image implements TimestampableInterface
         return $this;
     }
 
-    public function getFileSize(): int
+    public function getFileSize(): ?int
     {
         return $this->fileSize;
     }
@@ -127,7 +108,7 @@ class Image implements TimestampableInterface
         return $this;
     }
 
-    public function getPatrimoine(): Patrimoine
+    public function getPatrimoine(): ?Patrimoine
     {
         return $this->patrimoine;
     }

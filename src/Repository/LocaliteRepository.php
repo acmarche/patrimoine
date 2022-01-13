@@ -23,9 +23,9 @@ class LocaliteRepository extends ServiceEntityRepository
         parent::__construct($registry, Localite::class);
     }
 
-    public  function getList():QueryBuilder
+    public function getList(): QueryBuilder
     {
-         return $this->createQueryBuilder('type')
+        return $this->createQueryBuilder('type')
             ->addOrderBy('type.nom', 'ASC');
     }
 
