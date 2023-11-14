@@ -1,3 +1,0 @@
-patrimoine:
-    resource: "../../src/AcMarche/Patrimoine/src/Controller/"
-    type:     annotation
