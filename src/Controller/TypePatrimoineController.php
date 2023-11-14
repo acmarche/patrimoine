@@ -5,7 +5,7 @@ namespace AcMarche\Patrimoine\Controller;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
 use AcMarche\Patrimoine\Form\TypePatrimoineType;
 use AcMarche\Patrimoine\Repository\TypePatrimoineRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/type')]
-#[IsGranted(data: 'ROLE_PATRIMOINE_ADMIN')]
+#[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class TypePatrimoineController extends AbstractController
 {
     public function __construct(private TypePatrimoineRepository $typeRepository)

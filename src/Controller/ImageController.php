@@ -7,19 +7,16 @@ use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\ImageType;
 use AcMarche\Patrimoine\Repository\ImageRepository;
 use Exception;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Handler\UploadHandler;
 
-/**
- * Class DefaultController.
- */
-#[IsGranted(data: 'ROLE_PATRIMOINE_ADMIN')]
+#[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class ImageController extends AbstractController
 {
     public function __construct(private ImageRepository $imageRepository, private UploadHandler $uploadHandler)

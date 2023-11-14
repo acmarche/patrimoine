@@ -5,7 +5,7 @@ namespace AcMarche\Patrimoine\Controller;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Form\StatutType;
 use AcMarche\Patrimoine\Repository\StatutRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/statut')]
-#[IsGranted(data: 'ROLE_PATRIMOINE_ADMIN')]
+#[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class StatutController extends AbstractController
 {
     public function __construct(private StatutRepository $statutRepository)

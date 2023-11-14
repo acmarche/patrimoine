@@ -5,7 +5,7 @@ namespace AcMarche\Patrimoine\Controller;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ class LocalisationController extends AbstractController
     {
     }
 
-    #[IsGranted(data: 'ROLE_PATRIMOINE_ADMIN')]
+    #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
     #[Route(path: '/{id}', name: 'patrimoine_localisation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Patrimoine $patrimoine): Response
     {
