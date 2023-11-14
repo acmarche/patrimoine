@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 
 #[ORM\Entity(repositoryClass: StatutRepository::class)]
+#[ORM\Table(name: 'patrimoine_statut')]
 class Statut implements Stringable
 {
     #[ORM\Id]

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 
 #[ORM\Entity(repositoryClass: LocaliteRepository::class)]
+#[ORM\Table(name: 'patrimoine_localite')]
 class Localite implements Stringable
 {
     #[ORM\Id]

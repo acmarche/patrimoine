@@ -12,6 +12,7 @@ use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PatrimoineRepository::class)]
+#[ORM\Table(name: 'patrimoine')]
 class Patrimoine implements TimestampableInterface, Stringable
 {
     use TimestampableTrait;

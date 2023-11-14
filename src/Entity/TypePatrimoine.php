@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 
 #[ORM\Entity(repositoryClass: TypePatrimoineRepository::class)]
+#[ORM\Table(name: 'patrimoine_type')]
 class TypePatrimoine implements Stringable
 {
     #[ORM\Id]

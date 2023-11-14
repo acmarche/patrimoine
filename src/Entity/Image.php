@@ -12,24 +12,20 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable
- */
+#[Vich\Uploadable]
+#[ORM\Table(name: 'patrioine_image')]
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image implements TimestampableInterface
 {
     use TimestampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
     #[ORM\Column(type: 'string', length: 80)]
     private ?string $mime = null;
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-     * @Vich\UploadableField(mapping="patrimoine", fileNameProperty="fileName", size="fileSize")
-     */
+    #[Vich\UploadableField(mapping: 'patrimoine', fileNameProperty: 'fileName', size: 'fileSize')]
     private ?File $file = null;
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $fileName = null;
@@ -63,8 +59,9 @@ class Image implements TimestampableInterface
         return $this->file;
     }
 
-    public function __construct(#[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')] private ?Patrimoine $patrimoine)
-    {
+    public function __construct(
+        #[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')] private ?Patrimoine $patrimoine
+    ) {
     }
 
     public function getId(): ?int
