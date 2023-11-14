@@ -3,9 +3,6 @@
 namespace AcMarche\Patrimoine\Entity;
 
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,14 +11,6 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     normalizationContext={"groups"={"patrimoine:read"}},
- *     denormalizationContext={"groups"={"patrimoine:write"}},
- *     itemOperations={"get"}
- * )
- * @ApiFilter(SearchFilter::class, properties={"nom": "partial", "id": "exact"})
- */
 #[ORM\Entity(repositoryClass: PatrimoineRepository::class)]
 class Patrimoine implements TimestampableInterface, Stringable
 {
