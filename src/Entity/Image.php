@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
-#[ORM\Table(name: 'patrioine_image')]
+#[ORM\Table(name: 'patrimoine_image')]
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image implements TimestampableInterface
 {
