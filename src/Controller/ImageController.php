@@ -2,9 +2,9 @@
 
 namespace AcMarche\Patrimoine\Controller;
 
+use AcMarche\EnquetePublique\Form\ImageDropZoneType;
 use AcMarche\Patrimoine\Entity\Image;
 use AcMarche\Patrimoine\Entity\Patrimoine;
-use AcMarche\Patrimoine\Form\ImageType;
 use AcMarche\Patrimoine\Repository\ImageRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,16 +24,45 @@ class ImageController extends AbstractController
     }
 
     #[Route(path: '/images/{id}', name: 'patrimoine_images')]
-    public function index(Patrimoine $patrimoine): Response
+    public function index(Request $request, Patrimoine $patrimoine): Response
     {
         $image = new Image($patrimoine);
-        $form = $this->createForm(
-            ImageType::class,
-            $image,
-            [
-                'action' => $this->generateUrl('patrimoine_image_upload', ['id' => $patrimoine->getId()]),
-            ]
-        );
+        $form = $this->createForm(ImageDropZoneType::class,);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var UploadedFile $data
+             */
+            $data = $form->getData();
+            foreach ($data['file'] as $file) {
+
+                if ($file instanceof UploadedFile) {
+                    $image = new Image($patrimoine);
+                    $orignalName = preg_replace(
+                        '#.'.$file->guessClientExtension().'#',
+                        '',
+                        $file->getClientOriginalName()
+                    );
+                    $fileName = $orignalName.'-'.uniqid().'.'.$file->guessClientExtension();
+
+                    $image->setMime($file->getMimeType());
+                    $image->setFileName($fileName);
+                    $image->setFile($file);
+
+                    try {
+                        $this->uploadHandler->upload($image, 'file');
+                        $this->imageRepository->persist($image);
+                        $this->imageRepository->flush();
+                    } catch (Exception $exception) {
+                        $this->addFlash('danger', $exception->getMessage());
+                    }
+                }
+            }
+
+            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+        }
+
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_ACCEPTED : Response::HTTP_OK);
 
         return $this->render(
             '@AcMarchePatrimoine/image/edit.html.twig',
@@ -41,35 +70,10 @@ class ImageController extends AbstractController
                 'patrimoine' => $patrimoine,
                 'form' => $form->createView(),
             ]
+            , $response
         );
     }
 
-    #[Route(path: '/image/upload/{id}', name: 'patrimoine_image_upload', methods: ['POST'])]
-    public function upload(Request $request, Patrimoine $patrimoine): RedirectResponse
-    {
-        $file = $request->files->get('file');
-        if ($file instanceof UploadedFile) {
-            $image = new Image($patrimoine);
-            //$nom = str_replace('.'.$file->getClientOriginalExtension(), '', $file->getClientOriginalName());
-            $image->setMime($file->getMimeType());
-            $image->setFileName($file->getClientOriginalName());
-            $image->setFile($file);
-
-            try {
-                $this->uploadHandler->upload($image, 'file');
-            } catch (Exception $exception) {
-                $this->addFlash('danger', $exception->getMessage());
-            }
-            $this->imageRepository->persist($image);
-        }
-        $this->imageRepository->flush();
-
-        return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
-    }
-
-    /**
-     * Finds and displays a Image entity.
-     */
     #[Route(path: '/image/{id}', name: 'patrimoine_image_show', methods: ['GET'])]
     public function show(Image $image): Response
     {
