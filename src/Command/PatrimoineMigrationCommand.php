@@ -3,6 +3,7 @@
 namespace AcMarche\Patrimoine\Command;
 
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,10 +11,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'patrimoine:migration',
+    description: 'up',
+)]
 class PatrimoineMigrationCommand extends Command
 {
-    protected static $defaultName = 'patrimoine:migration';
-
     public function __construct(
         private PatrimoineRepository $patrimoineRepository,
         string $name = null
@@ -24,7 +27,6 @@ class PatrimoineMigrationCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Add a short description for your command')
             ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
             ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
     }
