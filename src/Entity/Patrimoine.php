@@ -20,49 +20,49 @@ class Patrimoine implements TimestampableInterface, Stringable
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(groups: 'patrimoine:read')]
-    private ?int $id = null;
+    public ?int $id = null;
     #[ORM\Column(type: 'string', nullable: false)]
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $nom = null;
+    public ?string $nom = null;
     #[ORM\Column(type: 'string', nullable: true)]
-    protected ?string $rue = null;
+    public ?string $rue = null;
     #[ORM\Column(type: 'string', nullable: true)]
-    protected ?string $numero = null;
+    public ?string $numero = null;
     #[ORM\Column(type: 'integer', nullable: true)]
-    protected ?int $code_postal = null;
+    public ?int $code_postal = null;
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $longitude = null;
+    public ?string $longitude = null;
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $latitude = null;
+    public ?string $latitude = null;
     #[ORM\ManyToOne(targetEntity: Localite::class)]
     #[ORM\JoinColumn(nullable: true)]
-    private ?Localite $localite = null;
+    public ?Localite $localite = null;
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $descriptif = null;
+    public ?string $descriptif = null;
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $commentaire = null;
+    public ?string $commentaire = null;
     #[ORM\ManyToOne(targetEntity: TypePatrimoine::class)]
     #[ORM\JoinColumn(nullable: true)]
-    private ?TypePatrimoine $typePatrimoine = null;
+    public ?TypePatrimoine $typePatrimoine = null;
     #[ORM\ManyToOne(targetEntity: Statut::class)]
     #[ORM\JoinColumn(nullable: true)]
-    private ?Statut $statut = null;
+    public ?Statut $statut = null;
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'patrimoine')]
     #[Groups(groups: 'patrimoine:read')]
-    private iterable $images;
+    public iterable $images;
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $photo = null;
+    public ?string $photo = null;
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $type = null;
+    public ?string $type = null;
     #[Groups(groups: 'patrimoine:read')]
-    private ?string $statutTxt = null;
+    public ?string $statutTxt = null;
     #[Groups(groups: 'patrimoine:read')]
-    private string $geopoint;
+    public string $geopoint;
 
     public function getGeopoint(): string
     {

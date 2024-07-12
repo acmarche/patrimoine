@@ -24,7 +24,10 @@ class PatrimoineRepository extends ServiceEntityRepository
         parent::__construct($registry, Patrimoine::class);
     }
 
-    public function findAllSorted()
+    /**
+     * @return Patrimoine[]
+     */
+    public function findAllSorted():array
     {
         $qb = $this->createQueryBuilder('patrimoine');
 
@@ -38,7 +41,7 @@ class PatrimoineRepository extends ServiceEntityRepository
     /**
      * @return Patrimoine[]
      */
-    public function search(?string $nom, ?string $localite, ?TypePatrimoine $type, ?Statut $statut)
+    public function search(?string $nom, ?string $localite, ?TypePatrimoine $type, ?Statut $statut):array
     {
         $qb = $this->createQueryBuilder('patrimoine');
 
