@@ -9,13 +9,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class DefaultController extends AbstractController
 {
     public function __construct(private readonly PatrimoineRepository $patrimoineRepository)
     {
     }
 
+    #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
     #[Route(path: '/', name: 'patrimoine_home')]
     public function index(): RedirectResponse
     {
