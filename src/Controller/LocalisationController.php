@@ -5,21 +5,16 @@ namespace AcMarche\Patrimoine\Controller;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\LocalisationType;
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * Class LocalisationController.
- */
 #[Route(path: '/localisation')]
 class LocalisationController extends AbstractController
 {
-    public function __construct(private PatrimoineRepository $patrimoineRepository)
-    {
-    }
+    public function __construct(private PatrimoineRepository $patrimoineRepository) {}
 
     #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
     #[Route(path: '/{id}', name: 'patrimoine_localisation_edit', methods: ['GET', 'POST'])]
@@ -32,7 +27,7 @@ class LocalisationController extends AbstractController
 
             $this->addFlash('success', 'La localisation a bien été modifiée');
 
-            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->id]);
         }
 
         return $this->render(
@@ -40,7 +35,7 @@ class LocalisationController extends AbstractController
             [
                 'patrimoine' => $patrimoine,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 }

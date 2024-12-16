@@ -22,15 +22,17 @@ class Image implements TimestampableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    public ?int $id = null;
     #[ORM\Column(type: 'string', length: 80)]
-    private ?string $mime = null;
+    public ?string $mime = null;
     #[Vich\UploadableField(mapping: 'patrimoine', fileNameProperty: 'fileName', size: 'fileSize')]
-    private ?File $file = null;
+    public ?File $file = null;
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $fileName = null;
+    public ?string $fileName = null;
     #[ORM\Column(type: 'integer')]
-    private ?int $fileSize = null;
+    public ?int $fileSize = null;
+    #[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')]
+    public ?Patrimoine $patrimoine;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -60,60 +62,8 @@ class Image implements TimestampableInterface
     }
 
     public function __construct(
-        #[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')] private ?Patrimoine $patrimoine
+        ?Patrimoine $patrimoine,
     ) {
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getMime(): ?string
-    {
-        return $this->mime;
-    }
-
-    public function setMime(string $mime): self
-    {
-        $this->mime = $mime;
-
-        return $this;
-    }
-
-    public function getFileName(): ?string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(?string $fileName): self
-    {
-        $this->fileName = $fileName;
-
-        return $this;
-    }
-
-    public function getFileSize(): ?int
-    {
-        return $this->fileSize;
-    }
-
-    public function setFileSize(?int $fileSize): self
-    {
-        $this->fileSize = $fileSize;
-
-        return $this;
-    }
-
-    public function getPatrimoine(): ?Patrimoine
-    {
-        return $this->patrimoine;
-    }
-
-    public function setPatrimoine(?Patrimoine $patrimoine): self
-    {
         $this->patrimoine = $patrimoine;
-
-        return $this;
     }
 }

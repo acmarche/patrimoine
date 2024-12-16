@@ -6,20 +6,18 @@ use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Form\PatrimoineType;
 use AcMarche\Patrimoine\Form\SearchPatrimoineType;
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/patrimoine')]
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class PatrimoineController extends AbstractController
 {
-    public function __construct(private PatrimoineRepository $patrimoineRepository)
-    {
-    }
+    public function __construct(private PatrimoineRepository $patrimoineRepository) {}
 
     #[Route(path: '/', name: 'patrimoine_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
@@ -34,7 +32,7 @@ class PatrimoineController extends AbstractController
                 $data['nom'],
                 $data['localite'],
                 $data['typePatrimoine'],
-                $data['statut']
+                $data['statut'],
             );
             $search = true;
         }
@@ -45,7 +43,7 @@ class PatrimoineController extends AbstractController
                 'patrimoines' => $patrimoines,
                 'form' => $form->createView(),
                 'search' => $search,
-            ]
+            ],
         );
     }
 
@@ -59,7 +57,7 @@ class PatrimoineController extends AbstractController
             $this->patrimoineRepository->persist($patrimoine);
             $this->patrimoineRepository->flush();
 
-            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->id]);
         }
 
         return $this->render(
@@ -67,7 +65,7 @@ class PatrimoineController extends AbstractController
             [
                 'patrimoine' => $patrimoine,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
@@ -78,7 +76,7 @@ class PatrimoineController extends AbstractController
             '@AcMarchePatrimoine/patrimoine/show.html.twig',
             [
                 'patrimoine' => $patrimoine,
-            ]
+            ],
         );
     }
 
@@ -90,7 +88,7 @@ class PatrimoineController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->patrimoineRepository->flush();
 
-            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->id]);
         }
 
         return $this->render(
@@ -98,14 +96,14 @@ class PatrimoineController extends AbstractController
             [
                 'patrimoine' => $patrimoine,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
     #[Route(path: '/{id}', name: 'patrimoine_delete', methods: ['DELETE'])]
     public function delete(Request $request, Patrimoine $patrimoine): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$patrimoine->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$patrimoine->id, $request->request->get('_token'))) {
             $this->patrimoineRepository->remove($patrimoine);
             $this->patrimoineRepository->flush();
         }

@@ -5,20 +5,18 @@ namespace AcMarche\Patrimoine\Controller;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Form\StatutType;
 use AcMarche\Patrimoine\Repository\StatutRepository;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/statut')]
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class StatutController extends AbstractController
 {
-    public function __construct(private StatutRepository $statutRepository)
-    {
-    }
+    public function __construct(private StatutRepository $statutRepository) {}
 
     #[Route(path: '/', name: 'patrimoine_statut_index', methods: ['GET'])]
     public function index(): Response
@@ -27,7 +25,7 @@ class StatutController extends AbstractController
             '@AcMarchePatrimoine/statut/index.html.twig',
             [
                 'statuts' => $this->statutRepository->findAll(),
-            ]
+            ],
         );
     }
 
@@ -41,7 +39,7 @@ class StatutController extends AbstractController
             $this->statutRepository->persist($statut);
             $this->statutRepository->flush();
 
-            return $this->redirectToRoute('patrimoine_statut_show', ['id' => $statut->getId()]);
+            return $this->redirectToRoute('patrimoine_statut_show', ['id' => $statut->id]);
         }
 
         return $this->render(
@@ -49,7 +47,7 @@ class StatutController extends AbstractController
             [
                 'statut' => $statut,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
@@ -60,7 +58,7 @@ class StatutController extends AbstractController
             '@AcMarchePatrimoine/statut/show.html.twig',
             [
                 'statut' => $statut,
-            ]
+            ],
         );
     }
 
@@ -72,7 +70,7 @@ class StatutController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->statutRepository->flush();
 
-            return $this->redirectToRoute('patrimoine_statut_show', ['id' => $statut->getId()]);
+            return $this->redirectToRoute('patrimoine_statut_show', ['id' => $statut->id]);
         }
 
         return $this->render(
@@ -80,14 +78,14 @@ class StatutController extends AbstractController
             [
                 'statut' => $statut,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
     #[Route(path: '/{id}', name: 'patrimoine_statut_delete', methods: ['DELETE'])]
     public function delete(Request $request, Statut $statut): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$statut->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$statut->id, $request->request->get('_token'))) {
             $this->statutRepository->remove($statut);
             $this->statutRepository->flush();
         }

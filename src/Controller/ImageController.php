@@ -19,15 +19,13 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class ImageController extends AbstractController
 {
-    public function __construct(private ImageRepository $imageRepository, private UploadHandler $uploadHandler)
-    {
-    }
+    public function __construct(private ImageRepository $imageRepository, private UploadHandler $uploadHandler) {}
 
     #[Route(path: '/images/{id}', name: 'patrimoine_images')]
     public function index(Request $request, Patrimoine $patrimoine): Response
     {
         $image = new Image($patrimoine);
-        $form = $this->createForm(ImageDropZoneType::class,);
+        $form = $this->createForm(ImageDropZoneType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /**
@@ -35,19 +33,18 @@ class ImageController extends AbstractController
              */
             $data = $form->getData();
             foreach ($data['file'] as $file) {
-
                 if ($file instanceof UploadedFile) {
                     $image = new Image($patrimoine);
                     $orignalName = preg_replace(
                         '#.'.$file->guessClientExtension().'#',
                         '',
-                        $file->getClientOriginalName()
+                        $file->getClientOriginalName(),
                     );
                     $fileName = $orignalName.'-'.uniqid().'.'.$file->guessClientExtension();
 
-                    $image->setMime($file->getMimeType());
-                    $image->setFileName($fileName);
-                    $image->setFile($file);
+                    $image->mime = $file->getMimeType();
+                    $image->fileName = $fileName;
+                    $image->file = $file;
 
                     try {
                         $this->uploadHandler->upload($image, 'file');
@@ -59,7 +56,7 @@ class ImageController extends AbstractController
                 }
             }
 
-            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+            return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->id]);
         }
 
         $response = new Response(null, $form->isSubmitted() ? Response::HTTP_ACCEPTED : Response::HTTP_OK);
@@ -70,7 +67,7 @@ class ImageController extends AbstractController
                 'patrimoine' => $patrimoine,
                 'form' => $form->createView(),
             ]
-            , $response
+            , $response,
         );
     }
 
@@ -81,21 +78,21 @@ class ImageController extends AbstractController
             '@AcMarchePatrimoine/image/show.html.twig',
             [
                 'image' => $image,
-                'patrimoine' => $image->getPatrimoine(),
-            ]
+                'patrimoine' => $image->patrimoine,
+            ],
         );
     }
 
     #[Route(path: '/image/{id}', name: 'patrimoine_image_delete', methods: ['DELETE'])]
     public function delete(Request $request, Image $image): RedirectResponse
     {
-        $patrimoine = $image->getPatrimoine();
-        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
+        $patrimoine = $image->patrimoine;
+        if ($this->isCsrfTokenValid('delete'.$image->id, $request->request->get('_token'))) {
             $this->imageRepository->remove($image);
             $this->imageRepository->flush();
             $this->addFlash('success', "L'image a bien été supprimée");
         }
 
-        return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->getId()]);
+        return $this->redirectToRoute('patrimoine_show', ['id' => $patrimoine->id]);
     }
 }

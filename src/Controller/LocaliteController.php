@@ -5,20 +5,18 @@ namespace AcMarche\Patrimoine\Controller;
 use AcMarche\Patrimoine\Entity\Localite;
 use AcMarche\Patrimoine\Form\LocaliteType;
 use AcMarche\Patrimoine\Repository\LocaliteRepository;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/localite')]
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class LocaliteController extends AbstractController
 {
-    public function __construct(private LocaliteRepository $localiteRepository)
-    {
-    }
+    public function __construct(private LocaliteRepository $localiteRepository) {}
 
     #[Route(path: '/', name: 'patrimoine_localite_index', methods: ['GET'])]
     public function index(): Response
@@ -27,7 +25,7 @@ class LocaliteController extends AbstractController
             '@AcMarchePatrimoine/localite/index.html.twig',
             [
                 'localites' => $this->localiteRepository->findAll(),
-            ]
+            ],
         );
     }
 
@@ -41,7 +39,7 @@ class LocaliteController extends AbstractController
             $this->localiteRepository->persist($localite);
             $this->localiteRepository->flush();
 
-            return $this->redirectToRoute('patrimoine_localite_show', ['id' => $localite->getId()]);
+            return $this->redirectToRoute('patrimoine_localite_show', ['id' => $localite->id]);
         }
 
         return $this->render(
@@ -49,7 +47,7 @@ class LocaliteController extends AbstractController
             [
                 'localite' => $localite,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
@@ -60,7 +58,7 @@ class LocaliteController extends AbstractController
             '@AcMarchePatrimoine/localite/show.html.twig',
             [
                 'localite' => $localite,
-            ]
+            ],
         );
     }
 
@@ -72,7 +70,7 @@ class LocaliteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->localiteRepository->flush();
 
-            return $this->redirectToRoute('patrimoine_localite_show', ['id' => $localite->getId()]);
+            return $this->redirectToRoute('patrimoine_localite_show', ['id' => $localite->id]);
         }
 
         return $this->render(
@@ -80,14 +78,14 @@ class LocaliteController extends AbstractController
             [
                 'localite' => $localite,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
     #[Route(path: '/{id}', name: 'patrimoine_localite_delete', methods: ['DELETE'])]
     public function delete(Request $request, Localite $localite): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$localite->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$localite->id, $request->request->get('_token'))) {
             $this->localiteRepository->remove($localite);
             $this->localiteRepository->flush();
         }

@@ -4,7 +4,6 @@ namespace AcMarche\Patrimoine\Entity;
 
 use AcMarche\Patrimoine\Repository\PatrimoineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
@@ -72,7 +71,7 @@ class Patrimoine implements TimestampableInterface, Stringable
     public function getType(): ?string
     {
         if (null !== $this->typePatrimoine) {
-            return $this->getTypePatrimoine()->getNom();
+            return $this->typePatrimoine->nom;
         }
 
         return null;
@@ -81,7 +80,7 @@ class Patrimoine implements TimestampableInterface, Stringable
     public function getStatutTxt(): ?string
     {
         if (null !== $this->statut) {
-            return $this->getStatut()->getNom();
+            return $this->statut->nom;
         }
 
         return null;
@@ -94,186 +93,6 @@ class Patrimoine implements TimestampableInterface, Stringable
 
     public function __toString(): string
     {
-        return $this->getNom();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
         return $this->nom;
-    }
-
-    public function setNom(?string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?string
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?string $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?string
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(?string $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLocalite(): ?Localite
-    {
-        return $this->localite;
-    }
-
-    public function setLocalite(?Localite $localite): self
-    {
-        $this->localite = $localite;
-
-        return $this;
-    }
-
-    public function getDescriptif(): ?string
-    {
-        return $this->descriptif;
-    }
-
-    public function setDescriptif(?string $descriptif): self
-    {
-        $this->descriptif = $descriptif;
-
-        return $this;
-    }
-
-    public function getCommentaire(): ?string
-    {
-        return $this->commentaire;
-    }
-
-    public function setCommentaire(?string $commentaire): self
-    {
-        $this->commentaire = $commentaire;
-
-        return $this;
-    }
-
-    public function getTypePatrimoine(): ?TypePatrimoine
-    {
-        return $this->typePatrimoine;
-    }
-
-    public function setTypePatrimoine(?TypePatrimoine $typePatrimoine): self
-    {
-        $this->typePatrimoine = $typePatrimoine;
-
-        return $this;
-    }
-
-    public function getStatut(): ?Statut
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(?Statut $statut): self
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): iterable
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setPatrimoine($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getPatrimoine() === $this) {
-                $image->setPatrimoine(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(string $rue): self
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
-    public function getNumero(): ?string
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(?string $numero): self
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    public function getCodePostal(): ?int
-    {
-        return $this->code_postal;
-    }
-
-    public function setCodePostal(int $code_postal): self
-    {
-        $this->code_postal = $code_postal;
-
-        return $this;
     }
 }
