@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Form;
 
+use Doctrine\ORM\QueryBuilder;
 use AcMarche\Patrimoine\Entity\Localite;
 use AcMarche\Patrimoine\Entity\Patrimoine;
 use AcMarche\Patrimoine\Entity\Statut;
@@ -17,9 +18,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PatrimoineType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->add('nom', TextType::class)
             ->add('rue', TextType::class, [
                 'required' => false,
@@ -35,7 +36,7 @@ class PatrimoineType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Localite::class,
-                    'query_builder' => fn (LocaliteRepository $localiteRepository) => $localiteRepository->getList(),
+                    'query_builder' => fn (LocaliteRepository $localiteRepository): QueryBuilder => $localiteRepository->getList(),
                     'required' => true,
                     'placeholder' => 'Sélectionnez',
                 ]
@@ -61,7 +62,7 @@ class PatrimoineType extends AbstractType
                     'class' => TypePatrimoine::class,
                     'query_builder' => fn (
                         TypePatrimoineRepository $typePatrimoineRepository
-                    ) => $typePatrimoineRepository->getForList(),
+                    ): QueryBuilder => $typePatrimoineRepository->getForList(),
                     'placeholder' => 'Sélectionnez',
                 ]
             )->add(
@@ -75,9 +76,9 @@ class PatrimoineType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
                 'data_class' => Patrimoine::class,
             ]

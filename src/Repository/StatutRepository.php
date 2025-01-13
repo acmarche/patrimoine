@@ -17,19 +17,8 @@ class StatutRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Statut::class);
-    }
-
-    public function findAllSorted()
-    {
-        $qb = $this->createQueryBuilder('statut');
-
-        return
-            $qb
-                ->addOrderBy('statut.nom', 'ASC')
-                ->getQuery()
-                ->getResult();
+        parent::__construct($managerRegistry, Statut::class);
     }
 }

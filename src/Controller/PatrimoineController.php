@@ -17,13 +17,14 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class PatrimoineController extends AbstractController
 {
-    public function __construct(private PatrimoineRepository $patrimoineRepository) {}
+    public function __construct(private readonly PatrimoineRepository $patrimoineRepository) {}
 
     #[Route(path: '/', name: 'patrimoine_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $form = $this->createForm(SearchPatrimoineType::class);
         $form->handleRequest($request);
+
         $patrimoines = [];
         $search = false;
         if ($form->isSubmitted() && $form->isValid()) {

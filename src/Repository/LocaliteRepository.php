@@ -18,9 +18,9 @@ class LocaliteRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Localite::class);
+        parent::__construct($managerRegistry, Localite::class);
     }
 
     public function getList(): QueryBuilder

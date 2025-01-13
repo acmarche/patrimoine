@@ -19,7 +19,7 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class ImageController extends AbstractController
 {
-    public function __construct(private ImageRepository $imageRepository, private UploadHandler $uploadHandler) {}
+    public function __construct(private readonly ImageRepository $imageRepository, private readonly UploadHandler $uploadHandler) {}
 
     #[Route(path: '/images/{id}', name: 'patrimoine_images')]
     public function index(Request $request, Patrimoine $patrimoine): Response

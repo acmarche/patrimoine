@@ -11,9 +11,9 @@ class TablePrefix
     {
     }
 
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
+    public function loadClassMetadata(LoadClassMetadataEventArgs $loadClassMetadataEventArgs): void
     {
-        $classMetadata = $eventArgs->getClassMetadata();
+        $classMetadata = $loadClassMetadataEventArgs->getClassMetadata();
 
         if (!preg_match('#'.$this->namespace.'#', $classMetadata->namespace)) {
             return;
@@ -26,9 +26,9 @@ class TablePrefix
             ]);
         }
 
-        foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
-            if (ClassMetadata::MANY_TO_MANY == $mapping['type'] && $mapping['isOwningSide']) {
-                $mappedTableName = $mapping['joinTable']['name'];
+        foreach ($classMetadata->getAssociationMappings() as $fieldName => $associationMapping) {
+            if (ClassMetadata::MANY_TO_MANY == $associationMapping['type'] && $associationMapping['isOwningSide']) {
+                $mappedTableName = $associationMapping['joinTable']['name'];
                 $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix.$mappedTableName;
             }
         }

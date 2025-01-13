@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route(path: '/localisation')]
 class LocalisationController extends AbstractController
 {
-    public function __construct(private PatrimoineRepository $patrimoineRepository) {}
+    public function __construct(private readonly PatrimoineRepository $patrimoineRepository) {}
 
     #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
     #[Route(path: '/{id}', name: 'patrimoine_localisation_edit', methods: ['GET', 'POST'])]

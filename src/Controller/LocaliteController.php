@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class LocaliteController extends AbstractController
 {
-    public function __construct(private LocaliteRepository $localiteRepository) {}
+    public function __construct(private readonly LocaliteRepository $localiteRepository) {}
 
     #[Route(path: '/', name: 'patrimoine_localite_index', methods: ['GET'])]
     public function index(): Response

@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Form;
 
+use Doctrine\ORM\QueryBuilder;
 use AcMarche\Patrimoine\Entity\Localite;
 use AcMarche\Patrimoine\Entity\Statut;
 use AcMarche\Patrimoine\Entity\TypePatrimoine;
@@ -15,9 +16,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchPatrimoineType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->add(
                 'nom',
                 SearchType::class,
@@ -33,7 +34,7 @@ class SearchPatrimoineType extends AbstractType
                     'class' => Localite::class,
                     'query_builder' => fn (
                         LocaliteRepository $localiteRepository
-                    ) => $localiteRepository->getList(),
+                    ): QueryBuilder => $localiteRepository->getList(),
                     'required' => false,
                     'placeholder' => 'Localité',
                 ]
@@ -45,7 +46,7 @@ class SearchPatrimoineType extends AbstractType
                     'class' => TypePatrimoine::class,
                     'query_builder' => fn (
                         TypePatrimoineRepository $typePatrimoineRepository
-                    ) => $typePatrimoineRepository->getForList(),
+                    ): QueryBuilder => $typePatrimoineRepository->getForList(),
                     'required' => false,
                     'placeholder' => 'Type',
                 ]
@@ -61,9 +62,9 @@ class SearchPatrimoineType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
             ]
         );

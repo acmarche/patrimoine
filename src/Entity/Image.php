@@ -2,6 +2,7 @@
 
 namespace AcMarche\Patrimoine\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use AcMarche\Patrimoine\Repository\ImageRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,18 +22,20 @@ class Image implements TimestampableInterface
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     public ?int $id = null;
-    #[ORM\Column(type: 'string', length: 80)]
+
+    #[ORM\Column(type: Types::STRING, length: 80)]
     public ?string $mime = null;
+
     #[Vich\UploadableField(mapping: 'patrimoine', fileNameProperty: 'fileName', size: 'fileSize')]
     public ?File $file = null;
-    #[ORM\Column(type: 'string', length: 255)]
+
+    #[ORM\Column(type: Types::STRING, length: 255)]
     public ?string $fileName = null;
-    #[ORM\Column(type: 'integer')]
+
+    #[ORM\Column(type: Types::INTEGER)]
     public ?int $fileSize = null;
-    #[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')]
-    public ?Patrimoine $patrimoine;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -49,7 +52,7 @@ class Image implements TimestampableInterface
     {
         $this->file = $file;
 
-        if (null !== $file) {
+        if ($file instanceof File) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new DateTimeImmutable();
@@ -61,9 +64,8 @@ class Image implements TimestampableInterface
         return $this->file;
     }
 
-    public function __construct(
-        ?Patrimoine $patrimoine,
-    ) {
-        $this->patrimoine = $patrimoine;
+    public function __construct(#[ORM\ManyToOne(targetEntity: Patrimoine::class, inversedBy: 'images')]
+    public ?Patrimoine $patrimoine)
+    {
     }
 }

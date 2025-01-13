@@ -18,9 +18,9 @@ class TypePatrimoineRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, TypePatrimoine::class);
+        parent::__construct($managerRegistry, TypePatrimoine::class);
     }
 
     public function getForList(): QueryBuilder

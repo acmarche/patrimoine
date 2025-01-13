@@ -19,9 +19,9 @@ class PatrimoineRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Patrimoine::class);
+        parent::__construct($managerRegistry, Patrimoine::class);
     }
 
     /**
@@ -29,10 +29,10 @@ class PatrimoineRepository extends ServiceEntityRepository
      */
     public function findAllSorted():array
     {
-        $qb = $this->createQueryBuilder('patrimoine');
+        $queryBuilder = $this->createQueryBuilder('patrimoine');
 
         return
-            $qb
+            $queryBuilder
                 ->addOrderBy('patrimoine.nom', 'ASC')
                 ->getQuery()
                 ->getResult();
@@ -41,32 +41,32 @@ class PatrimoineRepository extends ServiceEntityRepository
     /**
      * @return Patrimoine[]
      */
-    public function search(?string $nom, ?string $localite, ?TypePatrimoine $type, ?Statut $statut):array
+    public function search(?string $nom, ?string $localite, ?TypePatrimoine $typePatrimoine, ?Statut $statut):array
     {
-        $qb = $this->createQueryBuilder('patrimoine');
+        $queryBuilder = $this->createQueryBuilder('patrimoine');
 
         if ($nom) {
-            $qb->andWhere('patrimoine.nom LIKE :nom')
+            $queryBuilder->andWhere('patrimoine.nom LIKE :nom')
                 ->setParameter('nom', '%'.$nom.'%');
         }
 
         if ($localite) {
-            $qb->andWhere('patrimoine.localite = :localite')
+            $queryBuilder->andWhere('patrimoine.localite = :localite')
                 ->setParameter('localite', $localite);
         }
 
-        if (null !== $type) {
-            $qb->andWhere('patrimoine.typePatrimoine = :type')
-                ->setParameter('type', $type);
+        if ($typePatrimoine instanceof TypePatrimoine) {
+            $queryBuilder->andWhere('patrimoine.typePatrimoine = :type')
+                ->setParameter('type', $typePatrimoine);
         }
 
-        if (null !== $statut) {
-            $qb->andWhere('patrimoine.statut = :statut')
+        if ($statut instanceof Statut) {
+            $queryBuilder->andWhere('patrimoine.statut = :statut')
                 ->setParameter('statut', $statut);
         }
 
         return
-            $qb
+            $queryBuilder
                 ->addOrderBy('patrimoine.nom', 'ASC')
                 ->getQuery()
                 ->getResult();

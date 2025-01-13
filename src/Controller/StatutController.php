@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_PATRIMOINE_ADMIN')]
 class StatutController extends AbstractController
 {
-    public function __construct(private StatutRepository $statutRepository) {}
+    public function __construct(private readonly StatutRepository $statutRepository) {}
 
     #[Route(path: '/', name: 'patrimoine_statut_index', methods: ['GET'])]
     public function index(): Response

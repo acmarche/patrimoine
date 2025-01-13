@@ -17,17 +17,20 @@ class ImageRepository extends ServiceEntityRepository
 {
     use OrmCrudTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Image::class);
+        parent::__construct($managerRegistry, Image::class);
     }
 
-    public function findAllSorted()
+    /**
+     * @return Image[]
+     */
+    public function findAllSorted(): array
     {
-        $qb = $this->createQueryBuilder('image');
+        $queryBuilder = $this->createQueryBuilder('image');
 
         return
-            $qb
+            $queryBuilder
                 ->addOrderBy('image.nom', 'ASC')
                 ->getQuery()
                 ->getResult();
