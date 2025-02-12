@@ -1,43 +1,41 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Patrimoine{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('bundles/patrimoine/favicon.ico') }}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
-    {% block stylesheets %}
+{% extends 'base5.html.twig' %}
 
-    {% endblock %}
-    {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
-
-</head>
-<body>
-{% set action = app.request.attributes.get("_route") %}
-{% include '@Patrimoine/_header.html.twig' %}
-
-<main role="main" {% block main_class %}class="container pt-3"{% endblock %}>
-
-    {% include '@Patrimoine/_flash_messages.html.twig' %}
-
-    {% block notifications %}
-
-    {% endblock %}
-
-    {% block body %}
-
-    {% endblock %}
-</main>
-
-{% block footer %}
-    <footer class="mb-5 d-print-none">
-
-    </footer>
+{% block brand %}
+    <a class="navbar-brand" href="{{ path('patrimoine_home') }}" title="Accueil">
+        <i class=" ti-chess-rook" style="font-size: 40px;"></i> Patrimoine</a>
 {% endblock %}
-{% block scripts %}{% endblock %}
 
-</body>
-</html>
+{% block menu_top %}
+    <li>
+        <a href="{{ path('patrimoine_index') }}" class="nav-link px-2">
+            <i class="ti ti-list"> </i>
+            Simulateur
+        </a>
+    </li>
+    {% if is_granted('ROLE_PATRIMOINE_ADMIN') %}
+        <li>
+            <a href="{{ path('patrimoine_new') }}" class="nav-link px-2">
+                <i class="ti ti-plus"> </i>
+                Ajouter un patrimoine
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('patrimoine_type_index') }}" class="nav-link px-2">
+                <i class="ti ti-list"> </i>
+                Types
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('patrimoine_localite_index') }}" class="nav-link px-2">
+                <i class="ti ti-list"> </i>
+                Localités
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('patrimoine_statut_index') }}" class="nav-link px-2">
+                <i class="ti ti-list"> </i>
+                Statuts
+            </a>
+        </li>
+    {% endif %}
+{% endblock %}
